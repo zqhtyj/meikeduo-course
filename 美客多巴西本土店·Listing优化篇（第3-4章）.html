@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>美客多巴西本土店·课程培训页（改进版）</title>
+<style>
+/* 修复Google Fonts CDN链接问题 - 使用系统字体作为fallback */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+/* 注意：Google Fonts在中国可能被屏蔽，建议使用本地字体或镜像 */
+/* 备选方案：使用系统字体 */
+/* font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; */
+
+:root {
+  --bg:#f5f0e8;--bg2:#ebe4d8;--bg3:#fff9f0;--card:#fffcf5;
+  --text:#2a1f14;--text2:#5a4a38;--text3:#8a7a68;
+  --accent1:#c04b2d;--accent2:#d4842a;--accent3:#2a7d5f;--accent4:#2a5f7d;--accent5:#7d2a5f;
+  --border:#d4c8b8;--shadow:rgba(42,31,20,0.08);--shadow2:rgba(42,31,20,0.15);
+  --tag-bg:rgba(192,75,45,0.08);--tag-border:rgba(192,75,45,0.2);
+  --warn-bg:rgba(212,132,42,0.08);--warn-border:rgba(212,132,42,0.25);
+  --ext-bg:rgba(42,125,95,0.06);--ext-border:rgba(42,125,95,0.2);
+  --radius:10px;--radius-sm:6px;--transition:0.3s cubic-bezier(0.4,0,0.2,1);
+}
+[data-theme="dark"]{
+  --bg:#1a1612;--bg2:#241e18;--bg3:#2a2420;--card:#2e2820;
+  --text:#e8dfd4;--text2:#b8a898;--text3:#887868;
+  --border:#3e3428;--shadow:rgba(0,0,0,0.2);--shadow2:rgba(0,0,0,0.35);
+  --tag-bg:rgba(192,75,45,0.15);--tag-border:rgba(192,75,45,0.35);
+  --warn-bg:rgba(212,132,42,0.12);--warn-border:rgba(212,132,42,0.3);
+  --ext-bg:rgba(42,125,95,0.1);--ext-border:rgba(42,125,95,0.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;background:var(--bg);color:var(--text);line-height:1.7;min-height:100vh;transition:background var(--transition),color var(--transition)}
+.hero{background:linear-gradient(135deg,var(--accent1) 0%,var(--accent2) 50%,var(--accent3) 100%);padding:48px 24px 56px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero h1{font-family:'Noto Serif SC',serif;font-size:clamp(1.6rem,4vw,2.6rem);color:#fff;font-weight:900;letter-spacing:0.04em;position:relative;text-shadow:0 2px 12px rgba(0,0,0,0.2)}
+.hero .sub{color:rgba(255,255,255,0.85);font-size:0.95rem;margin-top:10px;position:relative;font-weight:300}
+.toolbar{position:sticky;top:0;z-index:100;background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;backdrop-filter:blur(12px);transition:background var(--transition)}
+.search-box{flex:1;min-width:180px;padding:8px 14px;border:1px solid var(--border);border-radius:20px;background:var(--card);color:var(--text);font-size:0.9rem;outline:none;transition:border var(--transition),box-shadow var(--transition);font-family:inherit}
+.search-box:focus{border-color:var(--accent1);box-shadow:0 0 0 3px var(--tag-bg)}
+.search-box::placeholder{color:var(--text3)}
+.tb-btn{padding:7px 16px;border:1px solid var(--border);border-radius:20px;background:var(--card);color:var(--text2);cursor:pointer;font-size:0.82rem;font-family:inherit;transition:all var(--transition);white-space:nowrap}
+.tb-btn:hover{border-color:var(--accent1);color:var(--accent1)}
+.main{max-width:960px;margin:0 auto;padding:32px 16px 80px}
+.section{margin-bottom:28px;border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 12px var(--shadow);transition:box-shadow var(--transition)}
+.section:hover{box-shadow:0 4px 20px var(--shadow2)}
+.section-head{padding:18px 22px;cursor:pointer;display:flex;align-items:center;gap:14px;user-select:none;transition:background var(--transition)}
+.section-head .ico{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#fff;flex-shrink:0;font-weight:700}
+.section-head .info{flex:1}
+.section-head .info h2{font-family:'Noto Serif SC',serif;font-size:1.15rem;font-weight:700;line-height:1.4}
+.section-head .info .desc{font-size:0.82rem;color:var(--text3);margin-top:2px}
+.section-head .arrow{font-size:1.1rem;color:var(--text3);transition:transform var(--transition);flex-shrink:0}
+.section.open .section-head .arrow{transform:rotate(90deg)}
+.section-body{max-height:0;overflow:hidden;transition:max-height 0.5s cubic-bezier(0.4,0,0.2,1)}
+.section.open .section-body{max-height:50000px}
+.section-body-inner{padding:0 22px 22px}
+.topic{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;overflow:hidden;transition:border-color var(--transition),box-shadow var(--transition)}
+.topic:hover{border-color:var(--accent2)}
+.topic:last-child{margin-bottom:0}
+.topic-head{padding:14px 18px;cursor:pointer;display:flex;align-items:center;gap:12px;user-select:none}
+.topic-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:#fff;flex-shrink:0}
+.topic-head .title{flex:1;font-weight:600;font-size:0.95rem}
+.topic-head .brief{font-size:0.78rem;color:var(--text3);max-width:40%;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.topic-head .tarrow{color:var(--text3);transition:transform var(--transition);flex-shrink:0;font-size:0.85rem}
+.topic.open .topic-head .tarrow{transform:rotate(90deg)}
+.topic-body{max-height:0;overflow:hidden;transition:max-height 0.45s cubic-bezier(0.4,0,0.2,1)}
+.topic.open .topic-body{max-height:30000px}
+.topic-body-inner{padding:0 18px 16px}
+.kb{margin-bottom:14px;border-radius:var(--radius-sm);padding:14px 16px;font-size:0.88rem;line-height:1.8}
+.kb:last-child{margin-bottom:0}
+.kb-label{font-weight:700;font-size:0.78rem;letter-spacing:0.06em;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.kb-core{background:var(--tag-bg);border-left:3px solid var(--accent1)}
+.kb-core .kb-label{color:var(--accent1)}
+.kb-warn{background:var(--warn-bg);border-left:3px solid var(--accent2)}
+.kb-warn .kb-label{color:var(--accent2)}
+.kb-ext{background:var(--ext-bg);border-left:3px solid var(--accent3)}
+.kb-ext .kb-label{color:var(--accent3)}
+.kb ul{padding-left:1.2em}
+.kb li{margin-bottom:2px}
+.kb strong{font-weight:600}
+.kb .hl{color:var(--accent1);font-weight:600}
+.kb .hl2{color:var(--accent3);font-weight:600}
+.takeaways{background:linear-gradient(135deg,var(--accent1),var(--accent2));border-radius:var(--radius);padding:28px 24px;margin-bottom:28px;color:#fff}
+.takeaways h2{font-family:'Noto Serif SC',serif;font-size:1.2rem;margin-bottom:16px;text-align:center}
+.takeaways ol{padding-left:1.4em;font-size:0.92rem;line-height:2}
+.takeaways li{opacity:0.95}
+.homework{background:var(--card);border:2px dashed var(--accent3);border-radius:var(--radius);padding:24px;margin-bottom:28px}
+.homework h2{font-family:'Noto Serif SC',serif;font-size:1.1rem;color:var(--accent3);margin-bottom:14px}
+.hw-item{background:var(--ext-bg);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:10px;font-size:0.88rem}
+.hw-item:last-child{margin-bottom:0}
+.hw-item strong{color:var(--accent3)}
+.stats{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+.stat-card{flex:1;min-width:140px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center}
+.stat-card .num{font-family:'Noto Serif SC',serif;font-size:1.8rem;font-weight:900;line-height:1.2}
+.stat-card .label{font-size:0.78rem;color:var(--text3);margin-top:4px}
+.sec-platform .section-head{background:linear-gradient(135deg,rgba(192,75,45,0.08),rgba(192,75,45,0.03))}
+.sec-platform .section-head .ico{background:var(--accent1)}
+.sec-platform .topic-num{background:var(--accent1)}
+.sec-tax .section-head{background:linear-gradient(135deg,rgba(42,95,125,0.08),rgba(42,95,125,0.03))}
+.sec-tax .section-head .ico{background:var(--accent4)}
+.sec-tax .topic-num{background:var(--accent4)}
+.sec-product .section-head{background:linear-gradient(135deg,rgba(42,125,95,0.08),rgba(42,125,95,0.03))}
+.sec-product .section-head .ico{background:var(--accent3)}
+.sec-product .topic-num{background:var(--accent3)}
+.sec-extra .section-head{background:linear-gradient(135deg,rgba(125,42,95,0.08),rgba(125,42,95,0.03))}
+.sec-extra .section-head .ico{background:var(--accent5)}
+.sec-extra .topic-num{background:var(--accent5)}
+
+/* 修复打印样式问题 - 同时展开section和topic */
+@media print{
+  .toolbar{display:none}
+  .section-body,.topic-body{max-height:none!important}
+  .section,.topic{break-inside:avoid}
+}
+
+/* 响应式设计 */
+@media(max-width:640px){
+  .hero{padding:32px 16px 40px}
+  .topic-head .brief{display:none}
+  .stats{gap:8px}
+  .stat-card{min-width:100px;padding:12px}
+  .stat-card .num{font-size:1.4rem}
+}
+
+/* 搜索高亮样式 */
+.search-highlight{background-color:rgba(192,75,45,0.3);border-radius:2px;padding:0 2px}
+
+/* 键盘快捷键提示 */
+.shortcut-hint{font-size:0.7rem;color:var(--text3);margin-left:4px;opacity:0.7}
+</style>
+</head>
+<body>
+<div class="hero">
+  <h1 id="heroTitle"></h1>
+  <div class="sub" id="heroSub"></div>
+</div>
+<div class="toolbar">
+  <input class="search-box" type="text" placeholder="搜索关键词... (Ctrl+F)" id="searchInput">
+  <button class="tb-btn" id="expandAll">全部展开</button>
+  <button class="tb-btn" id="collapseAll">全部收起</button>
+  <button class="tb-btn" id="themeToggle">深色模式</button>
+</div>
+<div class="main" id="mainContent">
+  <div class="stats" id="statsContainer"></div>
+  <div id="sectionsContainer"></div>
+  <div id="takeawaysContainer"></div>
+  <div id="homeworkContainer"></div>
+</div>
+
+<script>
+// 修复classList拼写错误问题（原版有bug）
+function toggleSection(el) { 
+  const section = el.closest('.section');
+  if (section) {
+    section.classList.toggle('open');
+  }
+}
+
+function toggleTopic(el) { 
+  const topic = el.closest('.topic');
+  if (topic) {
+    topic.classList.toggle('open');
+  }
+}
+
+// 修复搜索功能问题 - 搜索时先展开所有折叠块
+document.getElementById('searchInput').addEventListener('input', function() {
+  const q = this.value.trim().toLowerCase();
+  
+  // 如果搜索词不为空，先展开所有折叠块
+  if (q) {
+    document.querySelectorAll('.section').forEach(s => s.classList.add('open'));
+    document.querySelectorAll('.topic').forEach(t => t.classList.add('open'));
+  }
+  
+  document.querySelectorAll('.section').forEach(sec => {
+    let secMatch = false;
+    sec.querySelectorAll('.topic').forEach(top => {
+      const match = !q || top.textContent.toLowerCase().includes(q);
+      top.style.display = match ? '' : 'none';
+      if (match) { secMatch = true; }
+    });
+    sec.style.display = secMatch ? '' : 'none';
+  });
+  
+  // 添加搜索高亮
+  if (q) {
+    document.querySelectorAll('.topic').forEach(top => {
+      if (top.style.display !== 'none') {
+        highlightText(top, q);
+      }
+    });
+  } else {
+    // 清除高亮
+    document.querySelectorAll('.search-highlight').forEach(el => {
+      el.outerHTML = el.textContent;
+    });
+  }
+});
+
+// 搜索高亮函数
+function highlightText(element, keyword) {
+  // 清除之前的高亮
+  element.querySelectorAll('.search-highlight').forEach(el => {
+    el.outerHTML = el.textContent;
+  });
+  
+  // 添加新高亮
+  const regex = new RegExp(`(${keyword})`, 'gi');
+  const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+  const textNodes = [];
+  let node;
+  while (node = walker.nextNode()) {
+    textNodes.push(node);
+  }
+  
+  textNodes.forEach(textNode => {
+    if (textNode.nodeValue.toLowerCase().includes(keyword.toLowerCase())) {
+      const span = document.createElement('span');
+      span.className = 'search-highlight';
+      span.textContent = textNode.nodeValue;
+      textNodes.parentNode.replaceChild(span, textNode);
+    }
+  });
+}
+
+// 增加键盘快捷键
+document.addEventListener('keydown', function(e) {
+  // Ctrl+F 聚焦搜索框
+  if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+    e.preventDefault();
+    document.getElementById('searchInput').focus();
+  }
+  
+  // Esc 收起所有
+  if (e.key === 'Escape') {
+    document.getElementById('collapseAll').click();
+    document.getElementById('searchInput').blur();
+  }
+});
+
+// 主题切换
+let dark = false;
+document.getElementById('themeToggle').onclick = function() {
+  dark = !dark;
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : '');
+  this.textContent = dark ? '浅色模式' : '深色模式';
+  
+  // 保存主题偏好到localStorage
+  localStorage.setItem('theme', dark ? 'dark' : 'light');
+};
+
+// 页面加载时恢复主题偏好
+window.addEventListener('DOMContentLoaded', function() {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    dark = true;
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('themeToggle').textContent = '浅色模式';
+  }
+});
+
+// 全部展开
+document.getElementById('expandAll').onclick = () => {
+  document.querySelectorAll('.section').forEach(s => s.classList.add('open'));
+  document.querySelectorAll('.topic').forEach(t => t.classList.add('open'));
+};
+
+// 全部收起
+document.getElementById('collapseAll').onclick = () => {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('open'));
+  document.querySelectorAll('.topic').forEach(t => t.classList.remove('open'));
+};
+
+// 渲染函数
+function render(data) {
+  document.title = data.title;
+  document.getElementById('heroTitle').textContent = data.title;
+  document.getElementById('heroSub').textContent = data.subtitle || '';
+  
+  // Stats
+  const sc = document.getElementById('statsContainer');
+  if (data.stats && data.stats.length) {
+    sc.innerHTML = data.stats.map(s =>
+      `<div class="stat-card"><div class="num" style="color:${ACCENT_COLORS[(s.color||1)-1]}">${s.num}</div><div class="label">${s.label}</div></div>`
+    ).join('');
+  }
+  
+  // Sections
+  const c = document.getElementById('sectionsContainer');
+  c.innerHTML = data.sections.map(sec => {
+    const topics = sec.topics.map((t, ti) => {
+      let kb = '';
+      if (t.core) kb += `<div class="kb kb-core"><div class="kb-label">◆ 核心提炼</div>${t.core}</div>`;
+      if (t.warn) kb += `<div class="kb kb-warn"><div class="kb-label">⚠ 易错警示</div>${t.warn}</div>`;
+      if (t.ext)  kb += `<div class="kb kb-ext"><div class="kb-label">► 举一反三</div>${t.ext}</div>`;
+      if (t.orig) kb += `<div class="kb" style="background:var(--bg2);border-left:3px solid var(--border)"><div class="kb-label" style="color:var(--text3)">✧ 原文摘要</div>${t.orig}</div>`;
+      return `<div class="topic"><div class="topic-head" onclick="toggleTopic(this)"><div class="topic-num">${ti+1}</div><div class="title">${t.title}</div><div class="brief">${t.brief||''}</div><div class="tarrow">▶</div></div><div class="topic-body"><div class="topic-body-inner">${kb}</div></div></div>`;
+    }).join('');
+    return `<div class="section sec-${sec.cls||'platform'} open"><div class="section-head" onclick="toggleSection(this)"><div class="ico">${sec.icon||'★'}</div><div class="info"><h2>${sec.title}</h2><div class="desc">${sec.desc||''}</div></div><div class="arrow">▶</div></div><div class="section-body"><div class="section-body-inner">${topics}</div></div></div>`;
+  }).join('');
+  
+  // Takeaways
+  const tk = document.getElementById('takeawaysContainer');
+  if (data.takeaways && data.takeaways.length) {
+    tk.innerHTML = `<div class="takeaways"><h2>核心要点回顾</h2><ol>${data.takeaways.map(t => `<li>${t}</li>`).join('')}</ol></div>`;
+  }
+  
+  // Homework
+  const hw = document.getElementById('homeworkContainer');
+  if (data.homework && data.homework.length) {
+    hw.innerHTML = `<div class="homework"><h2>实践作业</h2>${data.homework.map(h => `<div class="hw-item"><strong>${h.title}</strong><br>${h.content}</div>`).join('')}</div>`;
+  }
+}
+
+// 颜色数组
+const ACCENT_COLORS = ['var(--accent1)','var(--accent2)','var(--accent3)','var(--accent4)','var(--accent5)'];
+
+// ===== DATA INJECTION POINT =====
+const DATA = {
+  "title": "美客多巴西本土店·Listing优化篇（第3-4章）",
+  "subtitle": "",
+  "sections": [
+    {
+      "cls": "platform",
+      "icon": "★",
+      "title": "第3章：标题与关键词本地化",
+      "desc": "标题和关键词是美客多Listing流量的入口阀门。巴西站的搜索算法以关键词匹配为核心权重，一个没有经过本地化优化的标题，即使产品再好也难以获得自然搜索曝光。本章从类目选择、标题撰写、关键词调研到巴西葡",
+      "topics": []
+    },
+    {
+      "cls": "tax",
+      "icon": "◆",
+      "title": "3.1 类目选择的流量池逻辑",
+      "desc": "",
+      "topics": [
+        {
+          "title": "3.1.1 类目决定流量分发的入口",
+          "brief": "",
+          "core": "<p>美客多的搜索排名算法并非纯文本匹配——系统会优先将商品展示在<strong>同一类目节点</strong>下的搜索结果中。换句话说，一个\"无线蓝牙耳机\"如果被放在\"手机配件」类目下，它在\"耳机\"类目搜索结果中将不会出现。<br />\n类目架构决定了三件事：<br />\n| 维度 | 影响 |<br />\n|------|------|<br />\n| 搜索匹配 | 只有正确类目下的商品才会进入对应关键词的搜索结果池 |<br />\n| 推荐流量 | 美客多首页\"推荐给你\"模块按类目偏好推荐 |<br />\n| 广告匹配 | 自动广告会优先投放在商品所在类目及相关类目 |<br />\n| 活动报名 | 大促活动（黑五/Cyber Monday）按类目筛选报名资格 |</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "3.1.2 美客多的类目体系",
+          "brief": "",
+          "core": "<p>美客多的类目结构是三级树状层级：</p>\n<pre class=\"codehilite\"><code>大类目（Level 1） → 子类目（Level 2） → 最小叶子类目（Level 3）\n</code></pre>\n\n<p>示例路径：</p>\n<pre class=\"codehilite\"><code>Eletrônicos（电子产品）\n  └── Fones de Ouvido（耳机）\n       └── Fones de Ouvido Bluetooth（蓝牙耳机）\n</code></pre>\n\n<p>每个叶子类目（Leaf Category）对应一个<strong>类目ID</strong>，这个ID决定了商品的产品类型、必填属性、佣金比例和广告竞争度。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "3.1.3 放错类目的代价",
+          "brief": "",
+          "core": "<p>实际运营中，类目选错是新手最隐蔽的错误。以\"手机支架\"为例：<br />\n| 放类目 | 搜索场景 | 点击率 |<br />\n|--------|---------|--------|<br />\n| Acessórios para Celulares（手机配件）——正确 | 用户搜\"suporte celular\"出现 | 8%~15% |<br />\n| Suportes para TV（电视支架）——错误 | 用户搜\"suporte tv\"出现 | 0.1%~2% |<br />\n| Material de Escritório（办公用品）——错误 | 完全无关 | &lt;0.1% |<br />\n实际案例：某卖家将\"充电宝\"误放入\"Eletrônicos &gt; Cabos\"类目，7天曝光量约10,000次，点击仅12次，点击率0.12%。修正到\"Baterias Portáteis\"类目后，相同标题下点击率提升至6.8%。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "3.1.4 如何验证类目是否选对",
+          "brief": "",
+          "core": "<p>三个实操检查方法：<br />\n<strong>方法一：竞品类目反查</strong><br />\n- 搜索你的核心关键词<br />\n- 找出搜索结果前10名的商品<br />\n- 点击进入详情页，查看URL中的/category/数字ID<br />\n- 将该类目ID记录下来与你所选类目对比<br />\n<strong>方法二：搜索结果精准度测试</strong><br />\n- 用无痕窗口搜索核心词<br />\n- 如果搜索结果中80%以上是同类产品，说明类目正确<br />\n- 如果混入了大量不相干商品，说明类目可能偏了<br />\n<strong>方法三：美客多前台面包屑导航</strong><br />\n- 点击竞品详情页，观察页面顶部的面包屑路径<br />\n- 例如：Home &gt; Celulares &gt; Acessórios &gt; Capinhas<br />\n- 这个路径就是该商品所处的完整类目链</p>\n<hr />",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "product",
+      "icon": "♣",
+      "title": "3.2 标题黄金公式",
+      "desc": "",
+      "topics": [
+        {
+          "title": "3.2.1 核心公式拆解",
+          "brief": "",
+          "core": "<p>美客多标题的推荐结构：</p>\n<pre class=\"codehilite\"><code>[核心关键词] + [属性词] + [场景词] + [规格参数]\n</code></pre>\n\n<table>\n<thead>\n<tr>\n<th>模块</th>\n<th>作用</th>\n<th>示例</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>核心关键词</td>\n<td>用户搜索的主要词，决定能否被搜到</td>\n<td>Capinha para iPhone 16</td>\n</tr>\n<tr>\n<td>属性词</td>\n<td>材质、颜色、功能等细分特征</td>\n<td>Silicone, À Prova de Quedas</td>\n</tr>\n<tr>\n<td>场景词</td>\n<td>使用场景，覆盖长尾搜索</td>\n<td>Corrida, Academia, Dia a Dia</td>\n</tr>\n<tr>\n<td>规格参数</td>\n<td>尺寸、容量、兼容型号等</td>\n<td>5.5 Polegadas, 10000mAh</td>\n</tr>\n</tbody>\n</table>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "3.2.2 60字符限制与移动端前30字符法则",
+          "brief": "",
+          "core": "<p>美客多标题推荐最佳长度为<strong>60个字符以内</strong>，多数类目上限约为80字符（具体因类目而异）。建议将核心信息压缩在前60字符内，因为超出的部分虽然技术上可输入，但在移动端和搜索摘要中实际展示的效果有限。<br />\n移动端搜索结果中，标题仅显示<strong>前30个字符</strong>（含空格），超出的部分会被截断并以\"...\"显示。这意味着：</p>\n<pre class=\"codehilite\"><code>显示的：Capinha iPhone 16 Silicone ...  \n用户看不到的：...Proteção Antichoque Rosa\n</code></pre>\n\n<p><strong>移动端标题优化原则：</strong><br />\n- 前30字符必须包含<strong>核心关键词 + 核心卖点</strong><br />\n- 品牌名尽量前置（如果品牌有搜索量）<br />\n- 非核心的规格参数往后放<br />\n| 错误示例（前30字符无效） | 正确示例（前30字符即卖点） |<br />\n|------------------------|------------------------|<br />\n| Produto Novo Original de Alta Qualidade Capinha para iPhone 16 | Capinha iPhone 16 Original Silicone |<br />\n| 前30字全是废话 | 前30字已包含核心产品+材质 |</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "3.2.3 标题修改限制：出单后变更需谨慎",
+          "brief": "",
+          "core": "<p>美客多对已出单商品的标题修改有严格的审核机制：<br />\n- 出单后修改标题会触发平台审核，Listing可能进入\"Em Revisão\"状态<br />\n- 部分类目和账号层级仍可通过后台编辑、API接口或联系客服请求修改标题<br />\n- 修改后的标题必须通过平台审核才能生效，审核期间可能影响商品正常展示<br />\n<strong>建议策略：</strong><br />\n1. 新品期（出单前）是优化标题的<strong>最佳窗口期</strong>——此时修改不受限制<br />\n2. 标题上线前，务必在后台预览检查所有字符<br />\n3. 已出单商品的标题修改需谨慎，避免在销售高峰期操作<br />\n4. 如果发现标题有重大错误（如拼错关键产品词），尽快联系美客多客服处理</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "3.2.4 正确示例 vs 错误示例",
+          "brief": "",
+          "core": "<table>\n<thead>\n<tr>\n<th>维度</th>\n<th>错误示例</th>\n<th>问题</th>\n<th>正确示例</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>关键词堆砌</td>\n<td>Tênis, Sapatos, Calçados, Tênis de Corrida</td>\n<td>重复词浪费字符</td>\n<td>Tênis de Corrida Masculino</td>\n</tr>\n<tr>\n<td>促销词入标题</td>\n<td>Frete Grátis! Promoção imperdível!</td>\n<td>被系统降权屏蔽</td>\n<td>（放在描述和标签中）</td>\n</tr>\n<tr>\n<td>无核心词开头</td>\n<td>Lindo e Confortável Tênis Esportivo</td>\n<td>移动端看不到核心词</td>\n<td>Tênis Esportivo Confortável</td>\n</tr>\n<tr>\n<td>信息过载</td>\n<td>Tênis Nike Air Max Preto Cinza 42 Azul 43 44 Corrida Masculino</td>\n<td>规格分散，无法聚焦</td>\n<td>Tênis Nike Air Max Masculino</td>\n</tr>\n</tbody>\n</table>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "3.2.5 禁用词：促销词入标题的代价",
+          "brief": "",
+          "core": "<p>美客多明确禁止在标题中使用以下类型词汇：<br />\n| 禁用类别 | 示例词 | 后果 |<br />\n|---------|--------|------|<br />\n| 促销声明 | Frete Grátis, Promoção, Oferta, Desconto, Liquidação | 系统审查降权，严重时下架 |<br />\n| 主观评价 | Melhor, Perfeito, Ótimo, Incrível | 触发虚假宣传审核 |<br />\n| 联系方式 | WhatsApp, Telefone, Site, www | 违规处罚 |<br />\n| 时间限定 | Últimas unidades, Tempo limitado | 误导性促销用语 |<br />\n<strong>正确做法：</strong> 促销词应放在商品描述、标签或广告文案中，而不是标题。标题的核心功能是<strong>搜索匹配</strong>，不是促销展示。</p>\n<hr />",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "extra",
+      "icon": "●",
+      "title": "3.3 关键词调研4种方法",
+      "desc": "",
+      "topics": [
+        {
+          "title": "3.3.1 方法一：美客多搜索框下拉推荐词",
+          "brief": "",
+          "core": "<p>操作步骤：<br />\n1. 打开美客多巴西站（mercadolivre.com.br）<br />\n2. 在搜索框输入核心词<br />\n3. 记录自动弹出的下拉推荐词<br />\n4. 逐个核心词重复操作<br />\n示例：输入 <code>capinha iphone</code>，下拉推荐：</p>\n<pre class=\"codehilite\"><code>capinha iphone 16\ncapinha iphone 16 pro\ncapinha iphone silicone\ncapinha iphone transparente\ncapinha iphone blindada\n</code></pre>\n\n<p>这些下拉词是美客多搜索算法基于<strong>真实用户高频搜索</strong>自动生成的，是免费且精准的关键词来源。<br />\n<strong>进阶技巧：</strong> 输入核心词后加空格，观察推荐词变化；输入核心词 + a/e/o 等葡语冠词，触发更多推荐。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "3.3.2 方法二：后台热搜词趋势工具",
+          "brief": "",
+          "core": "<p>美客多卖家后台（Vendedor &gt; Anúncios &gt; Palavras-chave）提供热搜词工具：<br />\n- <strong>搜索量数据</strong>：每个关键词的月度搜索次数<br />\n- <strong>竞争度指标</strong>：使用该关键词的商品数量<br />\n- <strong>趋势曲线</strong>：过去12个月的搜索量变化<br />\n- <strong>季节性波动</strong>：判断是否为节日性关键词<br />\n操作要点：<br />\n- 优先选择搜索量高但竞争度中等的词（蓝海词）<br />\n- 关注趋势曲线上扬的关键词<br />\n- 大促前1个月，搜索节日相关词（presente natalino, black friday）</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "3.3.3 方法三：自动广告搜索词报告",
+          "brief": "",
+          "core": "<p>这是最精准的关键词来源，因为数据来自<strong>你自己的产品实际触达的用户</strong>。<br />\n操作流程：<br />\n1. 对新产品开启自动广告（Auto Ads）<br />\n2. 运行2-3周，积累足够的曝光和点击数据<br />\n3. 下载搜索词报告（Relatório de Termos de Busca）<br />\n4. 分析报告中带来点击和转化的搜索词<br />\n| 数据类型 | 用途 |<br />\n|---------|------|<br />\n| 高点击高转化词 | 放入标题和手动广告 |<br />\n| 高曝光低点击词 | 检查标题是否匹配，考虑微调 |<br />\n| 高点击低转化词 | 检查Listing内功（图片/价格/评价） |<br />\n| 无关点击词 | 加入否定关键词 |</p><p>报告中有\"impressões\"（曝光）、\"cliques\"（点击）、\"conversões\"（转化）三列数据。建议每周分析一次，持续迭代关键词库。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "3.3.4 方法四：竞品标题高频词分析",
+          "brief": "",
+          "core": "<p>手动或使用工具抓取类目前10-20名竞品的标题，进行词频分析。<br />\n操作步骤：<br />\n1. 确定3-5个核心竞品<br />\n2. 记录每个竞品的完整标题<br />\n3. 拆解高频出现的核心词、属性词、场景词<br />\n4. 将出现频率最高的10-15个词收录到自己的关键词库<br />\n<strong>词频分析的实用维度：</strong><br />\n| 竞品排名 | 高频词1 | 高频词2 | 高频词3 | 特征 |<br />\n|---------|---------|---------|---------|------|<br />\n| 第1名 | capinha | silicone | antichoque | 强调防摔 |<br />\n| 第2名 | capinha | transparente | fino | 强调超薄 |<br />\n| 第3名 | capinha | couro | luxo | 强调质感 |<br />\n分析完你会发现：不同竞品虽然卖的是同类产品，但标题侧重点完全不同。找到<strong>你自己的差异化高频词</strong>，是突围的关键。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "3.3.5 关键词分类体系",
+          "brief": "",
+          "core": "<p>将所有调研获得的关键词按以下四类归档：<br />\n| 关键词类型 | 定义 | 搜索量 | 竞争度 | 使用位置 |<br />\n|-----------|------|--------|--------|---------|<br />\n| 核心大词 | 产品品类核心词，如\"capinha iphone\" | 极高 | 极高 | 标题前置 |<br />\n| 属性词 | 材质/颜色/功能，如\"silicone, transparente\" | 中高 | 中高 | 标题中间 |<br />\n| 长尾词 | 多词组合，如\"capinha iphone silicone antichoque\" | 低 | 低 | 标题后半段/标签 |<br />\n| 场景词 | 使用场景，如\"academia, corrida, viagem\" | 中 | 低 | 标题/描述/标签 |<br />\n<strong>关键词库管理建议：</strong> 建立Excel表格，按周更新，每次自动广告报告下载后补充新词。</p>\n<hr />",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "platform",
+      "icon": "★",
+      "title": "3.4 巴西葡语搜索习惯与常见错拼",
+      "desc": "",
+      "topics": [
+        {
+          "title": "3.4.1 巴西葡萄牙语的产品特有表达",
+          "brief": "",
+          "core": "<p>巴西葡萄牙语与欧洲葡萄牙语在电商产品名称上有显著差异。以下为高频产品类目的本地化表达对照：<br />\n| 产品 | 巴西葡语（正确表达） | 中文对应 | 常见错误表达 |<br />\n|------|-------------------|---------|------------|<br />\n| 手机壳 | Capinha / Capa de Celular | 手机壳 | Case（英语直接搬） |<br />\n| 充电宝 | Carregador Portátil / Power Bank | 充电宝 |（\"Pilha\"在巴葡中指电池） |<br />\n| 运动鞋 | Tênis | 运动鞋 | Sapatos Esportivos |<br />\n| 牛仔裤 | Calça Jeans | 牛仔裤 | Jeans（单数用法错误） |<br />\n| 蓝牙耳机 | Fone Bluetooth / Fone Sem Fio | 蓝牙耳机 | Fone de Ouvido Bluetooth（过于正式） |<br />\n| 贴膜 | Película / Película de Vidro | 钢化膜 | Protetor de Tela（容易与屏幕保护器混淆） |<br />\n| 数据线 | Cabo USB / Cabo Carregador | 数据线 | Fio USB（口语化严重） |<br />\n| 书包 | Mochila | 书包 | Bolsa Escolar（过于笼统） |</p><p>不要直接拿英语词翻译，也不要直接照搬谷歌翻译，要参考巴西本土卖家使用的表达。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "3.4.2 高频拼写错误",
+          "brief": "",
+          "core": "<p>巴西基础教育水平参差不齐，大量用户的实际搜索词存在拼写错误。<strong>关键词策略中必须包含这些错拼变体，否则将损失大量流量。</strong><br />\n| 正确拼写 | 常见错拼 | 搜索量占比（估） |<br />\n|---------|---------|---------------|<br />\n| Capinha | Capa, Capinha（变体）, Cpa | 正确占60%，错拼变体占40% |<br />\n| Tênis | Tenis（缺少重音符号） | 带重音占45%，不带重音占55% |<br />\n| Carregador | Caregador, Carregado, Caregadorr | 正确占70%，错拼占30% |<br />\n| Película | Pelicula（缺少重音符号） | 正确占50%，错拼占50% |<br />\n| Celular | Celular, Celua, Selular | 正确占65%，错拼占35% |<br />\n| Fone | Fon, Foni, Fone（拼写变体） | 正确占80%，错拼占20% |<br />\n| Acessórios | Acessorios, Acesorios | 正确占55%，错拼占45% |</p>",
+          "warn": "<p>以上搜索量占比为运营经验估算值，非美客多官方数据，供策略参考。实际错拼占比因类目和关键词而异。</p>",
+          "ext": "<ul>\n<li>标题中使用<strong>正确拼写</strong>（因为标题不可逆后，错拼将影响专业度）</li>\n<li>标签（Tags）中放<strong>错拼变体</strong></li>\n<li>手动广告关键词中添加错拼词，CPC通常更低（竞争少）</li>\n<li>描述中自然包含错拼词（不影响阅读的前提下）</li>\n</ul>",
+          "orig": ""
+        },
+        {
+          "title": "3.4.3 否定关键词管理",
+          "brief": "",
+          "core": "<p>不是所有搜索流量都是你想要的。以下三类关键词建议加入否定词，避免浪费广告预算：<br />\n| 类型 | 示例词 | 原因 |<br />\n|------|--------|------|<br />\n| 免费类 | grátis, gratuito | 这类用户的付费意愿极低 |<br />\n| 二手类 | usado, seminovo, recondicionado | 你的产品是全新的，不要让新旧对比影响转化 |<br />\n| 低价类 | barato, mais barato, econômico | 吸引的是价格敏感型用户，退货率偏高 |<br />\n| 损坏类 | quebrado, defeituoso, reparo | 搜索这些词的用户需求与新品不符 |<br />\n| 定制类 | personalizado, customizado | 除非你经营定制产品，否则转化率极低 |<br />\n<strong>设置路径：</strong> 广告后台 &gt; Campanha &gt; Palavras-chave Negativas</p>\n<hr />",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "tax",
+      "icon": "◆",
+      "title": "本章小结",
+      "desc": "| 关键模块 | 核心要点 | 执行建议 |",
+      "topics": []
+    },
+    {
+      "cls": "product",
+      "icon": "♣",
+      "title": "第4章：图片、描述与属性",
+      "desc": "如果说标题和关键词决定了用户能不能看到你的商品，那么图片、描述与属性则决定了用户愿不愿意点击、会不会购买。巴西站的视觉偏好与北美站截然不同，本章将从主图规范、描述法则、属性填写到标签系统，拆解影响转化",
+      "topics": []
+    },
+    {
+      "cls": "extra",
+      "icon": "●",
+      "title": "4.1 主图规范与巴西站流量密码",
+      "desc": "",
+      "topics": [
+        {
+          "title": "4.1.1 美客多基础图片规范",
+          "brief": "",
+          "core": "<table>\n<thead>\n<tr>\n<th></th>\n<th>技术规范</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>图片尺寸</td>\n<td>1200 × 1200 像素（正方形）</td>\n</tr>\n<tr>\n<td>文件格式</td>\n<td>JPG / JPEG / PNG</td>\n</tr>\n<tr>\n<td>文件大小</td>\n<td>不超过 10MB</td>\n</tr>\n<tr>\n<td>图片数量</td>\n<td>最少1张，最多12张</td>\n</tr>\n<tr>\n<td>分辨率</td>\n<td>≥ 72 DPI</td>\n</tr>\n<tr>\n<td>背景要求</td>\n<td>白色背景（RGB: 255,255,255）</td>\n</tr>\n<tr>\n<td><strong>产品占图比例：</strong> 主图中产品主体应占图片区域的<strong>80%以上</strong>。产品太小会被系统判定为\"非产品主图\"，可能被驳回或降权。</td>\n<td></td>\n</tr>\n</tbody>\n</table>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "4.1.2 巴西站的特殊要求：场景图 > 白底图",
+          "brief": "",
+          "core": "<p>美客多巴西站的搜索结果页面（SERP）与亚马逊有显著差异：<br />\n| 维度 | 亚马逊 | 美客多巴西站 |<br />\n|------|--------|-------------|<br />\n| 首图类型 | 白底图（强制性） | 场景图优先（白底也可，但场景图点击率更高） |<br />\n| 视觉风格 | 极简、干净 | 色彩丰富、信息密度高 |<br />\n| 竞品环境 | 品牌化程度高 | 大量中小卖家，视觉竞争空间大 |<br />\n| 点击率差异 | 白底图 ≈ 场景图 | 场景图比白底图高出15%~30% |<br />\n<strong>数据支撑：</strong> 某卖家同步上架同一款蓝牙耳机，A版本使用白底主图，B版本使用佩戴场景图（人物侧脸+产品入镜）。运行30天后，B版本点击率高出白底版21.7%，转化率高出9.3%。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "4.1.3 FULL标识的正确使用方式",
+          "brief": "",
+          "core": "<p>巴西站搜索结果页中，FULL商品会自动被平台添加绿色边框和\"FULL\"标识。这是系统自动渲染的，<strong>卖家不得自行在主图上叠加任何形式的边框或平台徽章</strong>。<br />\n美客多图片规范明确禁止：<br />\n- 在主图上使用任何颜色/样式的边框<br />\n- 自行粘贴或绘制平台徽章（如FULL、MercadoLíder、Mais Vendido等标签）<br />\n- 在主图上叠加促销文字、\"Entrega em 24h\"声明或任何形式的角标<br />\n<strong>合规的做法</strong>是在辅图（第2张之后）的角落位置，用文字标注发货相关信息，但需确保：<br />\n- 文字面积不超过图片面积的20%<br />\n- 不使用与平台官方标识相同或近似的绿色（#009c3b）<br />\n- 不模拟FULL标签的视觉样式<br />\n<strong>加速方案对比：</strong><br />\n| 方案 | 操作方式 | 效果 |<br />\n|------|---------|------|<br />\n| 成为FULL卖家 | 申请FULL仓，平台自动添加FULL标识和绿色边框 | 合规且权重最高 |<br />\n| 非FULL商品文字标注 | 辅图角落用文字注明\"Envio em 24h\" | 合规但视觉冲击力弱 |<br />\n| 自行模拟绿色边框+FULL标识 | ⚠️ 违规操作，会被降权或下架 | 高风险，不建议 |</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "4.1.4 辅图顺序与内容规划",
+          "brief": "",
+          "core": "<p>美客多支持最多12张图片。辅图的排列顺序直接影响转化率，推荐顺序如下：<br />\n| 图序 | 内容 | 目的 |<br />\n|-----|------|------|<br />\n| 第1张（主图） | 场景图/产品正面图 | 吸引点击 |<br />\n| 第2张 | 产品正面 | 展示整体形态 |<br />\n| 第3张 | 产品侧面/45度角 | 展示立体感 |<br />\n| 第4张 | 产品背面 | 展示全貌 |<br />\n| 第5张 | 使用场景图 | 激发购买欲望 |<br />\n| 第6张 | 细节特写（材质/接口/做工） | 解决质量疑虑 |<br />\n| 第7张 | 尺寸/规格图 | 解决兼容性疑虑 |<br />\n| 第8张 | 包装图 | 增加信任感（正品配件完好） |<br />\n| 第9~12张 | 额外卖点/售后说明 | 促进最终决策 |<br />\n<strong>转化率优化细节：</strong><br />\n- 第2~4张（产品多角度）：建议纯白底产品图，背景干净<br />\n- 第5张（场景图）：必须符合巴西当地使用场景（巴西人肤色、家居环境）<br />\n- 第6张（细节图）：建议用微距拍摄，突出材质纹理或接口做工<br />\n- 第7张（尺寸图）：尺寸标注使用<strong>厘米（cm）</strong>而非英寸，符合巴西习惯</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "4.1.5 图片常见扣分项",
+          "brief": "",
+          "core": "<p>美客多对图片有自动审核机制，以下行为会导致图片被降权或驳回：<br />\n| 扣分项 | 具体描述 | 后果 |<br />\n|-------|---------|------|<br />\n| 水印 | 任何形式的平台Logo、网址、水印文字 | 主图强制驳回 |<br />\n| 文字过多 | 主图上超过20%面积被文字覆盖 | 降权，不进入首页展示 |<br />\n| Logo滥用 | 非正规授权商使用品牌Logo | 侵权投诉，Listing下架 |<br />\n| 拼接图 | 多张图拼成一张（对比图、拼贴图） | 驳回或降权 |<br />\n| 模特干扰 | 模特佩戴过多饰品分散注意力 | 产品聚焦度下降，点击率降低 |<br />\n| 色差严重 | 产品实拍与图片颜色差异过大 | 差评率上升，退货率升高 |<br />\n| 分辨率不足 | 图片小于1200×1200 | 无法启用图片缩放，体验降级 |</p>\n<hr />",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "platform",
+      "icon": "★",
+      "title": "4.2 FABE描述法则",
+      "desc": "",
+      "topics": [
+        {
+          "title": "4.2.1 FABE法则框架",
+          "brief": "",
+          "core": "<p>FABE是国际通用的营销描述结构，在美客多Listing优化中同样适用：<br />\n| 层 | 要素 | 定义 | 示例（充电宝） |<br />\n|----|------|------|---------------|<br />\n| F | Feature（特征） | 产品具体的技术参数和物理属性 | 容量20000mAh，双USB输出接口 |<br />\n| A | Advantage（优势） | 相比竞品的改进点或差异化 | 比同类产品薄30%，支持快充协议 |<br />\n| B | Benefit（利益） | 给消费者带来的实际价值 | 出门一天不用充电，手机平板都能充 |<br />\n| E | Evidence（证据） | 支撑以上论点的客观证据 | 5.000+ 客户评价，INMETRO认证 |</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "4.2.2 FABE在美客多描述中的具体写法",
+          "brief": "",
+          "core": "<p><strong>Feature（特征）—— \"O que é\"</strong><br />\n以产品参数为核心，罗列事实性信息。使用短列表形式：</p>\n<pre class=\"codehilite\"><code>Características:\n- Capacidade: 20000mAh\n- Entrada: USB-C / Micro USB\n- Saída: 2x USB-A (2.4A cada)\n- Peso: 350g\n- Compatível com: iPhone, Samsung, Xiaomi\n</code></pre>\n\n<p><strong>Advantage（优势）—— \"Por que é diferente\"</strong><br />\n将Feature转化为与竞品的对比优势：</p>\n<pre class=\"codehilite\"><code>Vantagens:\n- 30% mais fino que carregadores de mesma capacidade\n- Carregamento rápido incluso (não precisa comprar cabo separado)\n- Design antiderrapante — não escorrega da mão\n</code></pre>\n\n<p><strong>Benefit（利益）—— \"O que o cliente ganha\"</strong><br />\n这一步是转化的关键。巴西消费者更关注产品能解决什么实际问题：</p>\n<pre class=\"codehilite\"><code>Benefícios para você:\n- Leve e fino — cabe no bolso sem pesar\n- Carrega seu celular até 5 vezes antes de precisar recarregar\n- Perfeito para viagens, trabalho e dia a dia\n</code></pre>\n\n<p><strong>Evidence（证据）—— \"Por que acreditar\"</strong><br />\n用具体数据和社会证明打消疑虑：</p>\n<pre class=\"codehilite\"><code>Prova:\n- Mais de 5.000 unidades vendidas no Mercado Livre\n- Avaliação média: 4.8 estrelas (1.200+ avaliações)\n- Certificado INMETRO incluso\n- 12 meses de garantia\n</code></pre>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "4.2.3 移动端优化要点",
+          "brief": "",
+          "core": "<p>美客多巴西站约70%的流量来自移动端。描述必须针对小屏幕优化：<br />\n| 原则 | 实施方法 | 原因 |<br />\n|------|---------|------|<br />\n| 短句 | 每行不超过15个葡语单词 | 长句在小屏幕上需要频繁换行，阅读体验差 |<br />\n| 分段 | 每2-3行为一段，段间距1行 | 段落过长会让用户直接滑走不读 |<br />\n| Emoji | 合理使用 🎯 ✅ 🔋 📦 🚚 | 视觉锚点，帮助用户快速定位信息 |<br />\n| 图标替代文字 | ✅ entrega em 24h &gt; \"entrega em 24 horas\" | 节省空间，提高可读性 |<br />\n| 列表优先 | 用bullet point替代段落描述 | 用户优先扫读，其次才详细阅读 |<br />\n<strong>移动端描述模板示例：</strong></p>\n<pre class=\"codehilite\"><code>📱 Capinha iPhone 16 Silicone Original\n✅ Material: silicone macio toque aveludado\n✅ Proteção: antichoque com 2m de queda\n✅ Compatível: iPhone 16, 16 Pro, 16 Pro Max\n🎯 Vantagens exclusivas:\n- Bordas elevadas protegem tela e câmera\n- Não amarela com o tempo (material premium)\n- Design ultrafino — não aumenta o volume do celular\n🚚 Entrega em 24h\n📍 Produto em estoque no Brasil\n✅ Compra segura | Satisfação garantida\n</code></pre>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "4.2.4 描述的必备元素",
+          "brief": "",
+          "core": "<p>无论什么产品类别，美客多巴西站的描述中应包含以下强制性内容：<br />\n| 必备元素 | 示例 | 说明 |<br />\n|---------|------|------|<br />\n| 巴西现货声明 | Produto em estoque no Brasil | 消除跨境配送的疑虑 |<br />\n| 快速发货承诺 | Entrega em 24h / Envio imediato | 如果实际做到24h发货 |<br />\n| 兼容性说明 | Compatível com iPhone 16 | 减少退换货 |<br />\n| 包装内容 | Acompanha: 1 capinha + 1 película | 管理用户预期 |<br />\n| 售后保证 | Garantia de 12 meses / 30 dias de devolução | 增加购买信心 |</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "4.2.5 关键词：葡萄牙语本地化，不要用谷歌翻译",
+          "brief": "",
+          "core": "<p>直接使用谷歌翻译葡语描述是新手最常犯的错误，后果包括：<br />\n- <strong>语法错误：</strong> 谷歌翻译无法区分名词阴阳性和单复数，读起来像\"机翻\"<br />\n- <strong>词不达意：</strong> 很多产品术语谷歌翻译会直译，而不是使用巴西本土表达<br />\n- <strong>被同行举报：</strong> 语法糟糕的描述容易被竞争对手举报为\"低质量Listing\"<br />\n<strong>建议方案：</strong><br />\n1. 先用中文写出完整FABE结构<br />\n2. 使用DeepL或ChatGPT翻译成葡语（优于谷歌翻译）<br />\n3. 找巴西本地人润色（可在Workana、Fiverr上找，约$10-20/次）<br />\n4. 在后台复制粘贴前，用葡萄牙语语法检查工具（如Reverso）跑一遍</p>\n<hr />",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "tax",
+      "icon": "◆",
+      "title": "4.3 属性填写完整度",
+      "desc": "",
+      "topics": [
+        {
+          "title": "4.3.1 属性的分类",
+          "brief": "",
+          "core": "<p>美客多将商品属性分为三类：<br />\n| 类别 | 定义 | 是否强制 | 示例 |<br />\n|------|------|---------|------|<br />\n| 必填属性 | 该类目下必须填写的核心属性 | 是，不填无法上架 | Marca, Modelo, Cor, Material |<br />\n| 推荐属性 | 平台建议填写以提升搜索权重 | 否，但强烈建议 | Peso, Dimensões, Faixa Etária |<br />\n| 自定义属性 | 卖家自行添加的特殊属性 | 否，可选 | 如\"Temperatura Máxima\" |</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "4.3.2 属性完整度与搜索权重的关系",
+          "brief": "",
+          "core": "<p>美客多的搜索算法不仅匹配标题关键词，也会匹配属性字段中的内容。属性完整度直接影响商品的搜索相关性评分。<br />\n| 属性填写率 | 搜索权重影响 | 对比效果 |<br />\n|-----------|------------|---------|<br />\n| 全部填满 | 最佳 | 同等标题质量下排名更高 |<br />\n| 大部分填写，少量空缺 | 良好 | 部分属性不匹配时仍可展示 |<br />\n| 大量空缺 | 明显削弱 | 搜索排名明显落后 |<br />\n| 仅填必填项 | 最弱 | 仅在精准匹配时有机会展示 |</p>",
+          "warn": "",
+          "ext": "<p>某卖家上架同一款蓝牙音箱，A版本填满25个属性（含自定义），B版本仅填8个必填属性。在完全相同标题、图片、价格条件下，A版本自然搜索流量是B版本的<strong>2.3倍</strong>，平均排名高出11个位置。</p>",
+          "orig": ""
+        },
+        {
+          "title": "4.3.3 属性值语言要求",
+          "brief": "",
+          "core": "<p>属性的值和选项必须使用<strong>葡萄牙语</strong>填写。<br />\n| 错误示例 | 正确示例 |<br />\n|---------|---------|<br />\n| Color: Black | Cor: Preto |<br />\n| Material: Silica Gel | Material: Silicone |<br />\n| Size: Large | Tamanho: Grande |</p>",
+          "warn": "<p>部分属性值是从下拉菜单选择的（系统预设值），预设值本身已经是葡语。对于需要手动输入的文本属性，一定要使用葡语而非英语或中文。</p>",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "4.3.4 自定义属性的用法",
+          "brief": "",
+          "core": "<p>当系统预设属性不足以描述你的产品独特卖点时，可以使用自定义属性。<br />\n<strong>适用场景：</strong><br />\n- 产品有独特的技术参数（如防水等级IP68）<br />\n- 竞品在新品属性中遗漏了你独有的卖点<br />\n- 需要补充巴西消费者特别关心的信息（如\"resistente à água\"）<br />\n<strong>自定义属性填写规范：</strong><br />\n- 属性名称：葡语，简短明确<br />\n- 属性值：葡语，参数化表达（不要用主观形容词）<br />\n| ✅ 好的自定义属性 | ❌ 差的自定义属性 |<br />\n|-----------------|-----------------|<br />\n| Resistência: à prova d'água IP68 | Qualidade: muito boa |<br />\n| Peso: 250g | Tamanho: pequeno |<br />\n| Composição: 100% Algodão | Material: bom |</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "4.3.5 属性与类目节点的关系",
+          "brief": "",
+          "core": "<p>同一个类目节点下的所有商品共享同一套属性模板。这意味着：<br />\n- 如果你发现竞品拥有某个属性而你没有，说明你可能漏填了<br />\n- 属性模板由美客多根据类目ID定义，上架后无法更改类目<br />\n- 部分属性在特定类目下会显示在搜索结果页的\"Filtro（筛选）\"中<br />\n<strong>策略建议：</strong><br />\n1. 上架前查看Top10竞品的属性列表，逐一对照填写<br />\n2. 自定义属性不要超过5个，过多会增加审核难度<br />\n3. 属性值尽可能使用下拉菜单中的预设选项（而非手动输入），因为预设选项更易被搜索算法匹配</p>\n<hr />",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "product",
+      "icon": "♣",
+      "title": "4.4 标签系统",
+      "desc": "",
+      "topics": [
+        {
+          "title": "4.4.1 标签基础规则",
+          "brief": "",
+          "core": "<p>美客多标签（Tags）是与标题平行的关键词补充字段。<br />\n| 规则 | 说明 |<br />\n|------|------|<br />\n| 数量上限 | 最多5个标签 |<br />\n| 字符限制 | 每个标签不超过20个字符 |<br />\n| 内容限制 | 不能使用重复词，不能含促销词 |<br />\n| 修改规则 | 出单后<strong>不可修改</strong>，与标题相同 |</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "4.4.2 标签配置原则",
+          "brief": "",
+          "core": "<p>标签应遵循\"1+1+1\"配置策略：<strong>1个核心词 + 1个长尾词 + 1个热点词</strong>，剩余2个按产品特性灵活分配。<br />\n| 标签序号 | 类型 | 示例（手机壳） | 作用 |<br />\n|---------|------|--------------|------|<br />\n| 标签1 | 核心大词 | capa iphone 16 | 锁定主要搜索流量 |<br />\n| 标签2 | 属性词变体 | capinha silicone | 覆盖细分搜索 |<br />\n| 标签3 | 长尾词 | proteção antichoque | 拦截精准长尾 |<br />\n| 标签4 | 场景词 | capa corrida | 覆盖使用场景 |<br />\n| 标签5 | 错拼变体 | capa iphone 16 | 覆盖错拼搜索 |<br />\n<strong>不同类别的标签分配策略：</strong><br />\n| 产品阶段 | 策略 | 示例 |<br />\n|---------|------|------|<br />\n| 新品上架 | 核心大词+错拼词为主 | capa iphone, capinha silicne |<br />\n| 成长期 | 扩展长尾词和场景词 | capa antichoque, capa viagem |<br />\n| 大促期 | 替换为节日相关热点词 | presente natal, black friday |<br />\n| 稳定期 | 维持核心词+竞品关联词 | capa original, capa premium |</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "4.4.3 标签定期更新策略",
+          "brief": "",
+          "core": "<p>标签虽然出单后不可修改，但对于<strong>未出单</strong>的商品，标签越频繁更新反而越有利于测试。<br />\n| 更新节点 | 推荐更新的标签 | 替换方向 |<br />\n|---------|---------------|---------|<br />\n| 月度常规 | 标签4-5（长尾/错拼） | 根据广告报告的新发现词 |<br />\n| 节日大促前2周 | 标签3-5（长尾/场景） | 替换为节日相关词（natal, black friday, dia das mães） |<br />\n| 换季时 | 标签4（场景词） | 夏季→夏季场景词，冬季→冬季场景词 |<br />\n| 竞品上新明显 | 标签2-3 | 加入竞品主打的差异化词 |<br />\n<strong>数据验证：</strong> 某卖家每2周调整1次未出单商品的标签。经过8周4次迭代，标签优化后的商品自然搜索流量比未调整的对照组高出17.6%。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "4.4.4 标签与标题的互补关系",
+          "brief": "",
+          "core": "<p>标签不是标题的简单重复，而是标题的补充。<br />\n| 维度 | 标题 | 标签 |<br />\n|------|------|------|<br />\n| 字符限制 | 60字符 | 每个标签20字符，共100字符 |<br />\n| 修改限制 | 出单后不可改 | 出单后不可改 |<br />\n| 核心功能 | 搜索匹配主入口 | 搜索匹配辅助入口 |<br />\n| 信息密度 | 必须精炼，前30字优先 | 可以放标题装不下的词 |<br />\n| 错拼处理 | 尽量用正确拼写 | 可以放错拼变体 |<br />\n<strong>互补关系示例：</strong><br />\n标题（60字符）：</p>\n<pre class=\"codehilite\"><code>Capinha iPhone 16 Silicone Original Antichoque Rosa\n</code></pre>\n\n<p>标签（5×20字符）：</p>\n<pre class=\"codehilite\"><code>标签1: capa iphone 16       ← 标题中已有，但被截断补充\n标签2: capinha silicone      ← 核心变体\n标签3: proteção queda        ← 标题中未展示的卖点\n标签4: capinha rosa          ← 颜色定位\n标签5: capa iphone           ← 错拼/简写变体\n</code></pre>\n\n<h2><strong>关键结论：</strong> 标题放不下但搜索量又不错的词，全部放到标签里。标签是免费的流量补充入口，不要浪费。</h2>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "extra",
+      "icon": "●",
+      "title": "本章小结",
+      "desc": "| 关键模块 | 核心要点 | 执行建议 |",
+      "topics": []
+    }
+  ],
+  "takeaways": [],
+  "homework": [],
+  "stats": [
+    {
+      "num": "36",
+      "label": "知识专题",
+      "color": 1
+    },
+    {
+      "num": "12",
+      "label": "核心板块",
+      "color": 4
+    }
+  ]
+};
+render(DATA);
+</script>
+</body>
+</html>

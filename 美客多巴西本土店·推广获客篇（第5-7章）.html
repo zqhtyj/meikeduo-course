@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>美客多巴西本土店·课程培训页（改进版）</title>
+<style>
+/* 修复Google Fonts CDN链接问题 - 使用系统字体作为fallback */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+/* 注意：Google Fonts在中国可能被屏蔽，建议使用本地字体或镜像 */
+/* 备选方案：使用系统字体 */
+/* font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; */
+
+:root {
+  --bg:#f5f0e8;--bg2:#ebe4d8;--bg3:#fff9f0;--card:#fffcf5;
+  --text:#2a1f14;--text2:#5a4a38;--text3:#8a7a68;
+  --accent1:#c04b2d;--accent2:#d4842a;--accent3:#2a7d5f;--accent4:#2a5f7d;--accent5:#7d2a5f;
+  --border:#d4c8b8;--shadow:rgba(42,31,20,0.08);--shadow2:rgba(42,31,20,0.15);
+  --tag-bg:rgba(192,75,45,0.08);--tag-border:rgba(192,75,45,0.2);
+  --warn-bg:rgba(212,132,42,0.08);--warn-border:rgba(212,132,42,0.25);
+  --ext-bg:rgba(42,125,95,0.06);--ext-border:rgba(42,125,95,0.2);
+  --radius:10px;--radius-sm:6px;--transition:0.3s cubic-bezier(0.4,0,0.2,1);
+}
+[data-theme="dark"]{
+  --bg:#1a1612;--bg2:#241e18;--bg3:#2a2420;--card:#2e2820;
+  --text:#e8dfd4;--text2:#b8a898;--text3:#887868;
+  --border:#3e3428;--shadow:rgba(0,0,0,0.2);--shadow2:rgba(0,0,0,0.35);
+  --tag-bg:rgba(192,75,45,0.15);--tag-border:rgba(192,75,45,0.35);
+  --warn-bg:rgba(212,132,42,0.12);--warn-border:rgba(212,132,42,0.3);
+  --ext-bg:rgba(42,125,95,0.1);--ext-border:rgba(42,125,95,0.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;background:var(--bg);color:var(--text);line-height:1.7;min-height:100vh;transition:background var(--transition),color var(--transition)}
+.hero{background:linear-gradient(135deg,var(--accent1) 0%,var(--accent2) 50%,var(--accent3) 100%);padding:48px 24px 56px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero h1{font-family:'Noto Serif SC',serif;font-size:clamp(1.6rem,4vw,2.6rem);color:#fff;font-weight:900;letter-spacing:0.04em;position:relative;text-shadow:0 2px 12px rgba(0,0,0,0.2)}
+.hero .sub{color:rgba(255,255,255,0.85);font-size:0.95rem;margin-top:10px;position:relative;font-weight:300}
+.toolbar{position:sticky;top:0;z-index:100;background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;backdrop-filter:blur(12px);transition:background var(--transition)}
+.search-box{flex:1;min-width:180px;padding:8px 14px;border:1px solid var(--border);border-radius:20px;background:var(--card);color:var(--text);font-size:0.9rem;outline:none;transition:border var(--transition),box-shadow var(--transition);font-family:inherit}
+.search-box:focus{border-color:var(--accent1);box-shadow:0 0 0 3px var(--tag-bg)}
+.search-box::placeholder{color:var(--text3)}
+.tb-btn{padding:7px 16px;border:1px solid var(--border);border-radius:20px;background:var(--card);color:var(--text2);cursor:pointer;font-size:0.82rem;font-family:inherit;transition:all var(--transition);white-space:nowrap}
+.tb-btn:hover{border-color:var(--accent1);color:var(--accent1)}
+.main{max-width:960px;margin:0 auto;padding:32px 16px 80px}
+.section{margin-bottom:28px;border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 12px var(--shadow);transition:box-shadow var(--transition)}
+.section:hover{box-shadow:0 4px 20px var(--shadow2)}
+.section-head{padding:18px 22px;cursor:pointer;display:flex;align-items:center;gap:14px;user-select:none;transition:background var(--transition)}
+.section-head .ico{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#fff;flex-shrink:0;font-weight:700}
+.section-head .info{flex:1}
+.section-head .info h2{font-family:'Noto Serif SC',serif;font-size:1.15rem;font-weight:700;line-height:1.4}
+.section-head .info .desc{font-size:0.82rem;color:var(--text3);margin-top:2px}
+.section-head .arrow{font-size:1.1rem;color:var(--text3);transition:transform var(--transition);flex-shrink:0}
+.section.open .section-head .arrow{transform:rotate(90deg)}
+.section-body{max-height:0;overflow:hidden;transition:max-height 0.5s cubic-bezier(0.4,0,0.2,1)}
+.section.open .section-body{max-height:50000px}
+.section-body-inner{padding:0 22px 22px}
+.topic{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;overflow:hidden;transition:border-color var(--transition),box-shadow var(--transition)}
+.topic:hover{border-color:var(--accent2)}
+.topic:last-child{margin-bottom:0}
+.topic-head{padding:14px 18px;cursor:pointer;display:flex;align-items:center;gap:12px;user-select:none}
+.topic-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:#fff;flex-shrink:0}
+.topic-head .title{flex:1;font-weight:600;font-size:0.95rem}
+.topic-head .brief{font-size:0.78rem;color:var(--text3);max-width:40%;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.topic-head .tarrow{color:var(--text3);transition:transform var(--transition);flex-shrink:0;font-size:0.85rem}
+.topic.open .topic-head .tarrow{transform:rotate(90deg)}
+.topic-body{max-height:0;overflow:hidden;transition:max-height 0.45s cubic-bezier(0.4,0,0.2,1)}
+.topic.open .topic-body{max-height:30000px}
+.topic-body-inner{padding:0 18px 16px}
+.kb{margin-bottom:14px;border-radius:var(--radius-sm);padding:14px 16px;font-size:0.88rem;line-height:1.8}
+.kb:last-child{margin-bottom:0}
+.kb-label{font-weight:700;font-size:0.78rem;letter-spacing:0.06em;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.kb-core{background:var(--tag-bg);border-left:3px solid var(--accent1)}
+.kb-core .kb-label{color:var(--accent1)}
+.kb-warn{background:var(--warn-bg);border-left:3px solid var(--accent2)}
+.kb-warn .kb-label{color:var(--accent2)}
+.kb-ext{background:var(--ext-bg);border-left:3px solid var(--accent3)}
+.kb-ext .kb-label{color:var(--accent3)}
+.kb ul{padding-left:1.2em}
+.kb li{margin-bottom:2px}
+.kb strong{font-weight:600}
+.kb .hl{color:var(--accent1);font-weight:600}
+.kb .hl2{color:var(--accent3);font-weight:600}
+.takeaways{background:linear-gradient(135deg,var(--accent1),var(--accent2));border-radius:var(--radius);padding:28px 24px;margin-bottom:28px;color:#fff}
+.takeaways h2{font-family:'Noto Serif SC',serif;font-size:1.2rem;margin-bottom:16px;text-align:center}
+.takeaways ol{padding-left:1.4em;font-size:0.92rem;line-height:2}
+.takeaways li{opacity:0.95}
+.homework{background:var(--card);border:2px dashed var(--accent3);border-radius:var(--radius);padding:24px;margin-bottom:28px}
+.homework h2{font-family:'Noto Serif SC',serif;font-size:1.1rem;color:var(--accent3);margin-bottom:14px}
+.hw-item{background:var(--ext-bg);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:10px;font-size:0.88rem}
+.hw-item:last-child{margin-bottom:0}
+.hw-item strong{color:var(--accent3)}
+.stats{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+.stat-card{flex:1;min-width:140px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center}
+.stat-card .num{font-family:'Noto Serif SC',serif;font-size:1.8rem;font-weight:900;line-height:1.2}
+.stat-card .label{font-size:0.78rem;color:var(--text3);margin-top:4px}
+.sec-platform .section-head{background:linear-gradient(135deg,rgba(192,75,45,0.08),rgba(192,75,45,0.03))}
+.sec-platform .section-head .ico{background:var(--accent1)}
+.sec-platform .topic-num{background:var(--accent1)}
+.sec-tax .section-head{background:linear-gradient(135deg,rgba(42,95,125,0.08),rgba(42,95,125,0.03))}
+.sec-tax .section-head .ico{background:var(--accent4)}
+.sec-tax .topic-num{background:var(--accent4)}
+.sec-product .section-head{background:linear-gradient(135deg,rgba(42,125,95,0.08),rgba(42,125,95,0.03))}
+.sec-product .section-head .ico{background:var(--accent3)}
+.sec-product .topic-num{background:var(--accent3)}
+.sec-extra .section-head{background:linear-gradient(135deg,rgba(125,42,95,0.08),rgba(125,42,95,0.03))}
+.sec-extra .section-head .ico{background:var(--accent5)}
+.sec-extra .topic-num{background:var(--accent5)}
+
+/* 修复打印样式问题 - 同时展开section和topic */
+@media print{
+  .toolbar{display:none}
+  .section-body,.topic-body{max-height:none!important}
+  .section,.topic{break-inside:avoid}
+}
+
+/* 响应式设计 */
+@media(max-width:640px){
+  .hero{padding:32px 16px 40px}
+  .topic-head .brief{display:none}
+  .stats{gap:8px}
+  .stat-card{min-width:100px;padding:12px}
+  .stat-card .num{font-size:1.4rem}
+}
+
+/* 搜索高亮样式 */
+.search-highlight{background-color:rgba(192,75,45,0.3);border-radius:2px;padding:0 2px}
+
+/* 键盘快捷键提示 */
+.shortcut-hint{font-size:0.7rem;color:var(--text3);margin-left:4px;opacity:0.7}
+</style>
+</head>
+<body>
+<div class="hero">
+  <h1 id="heroTitle"></h1>
+  <div class="sub" id="heroSub"></div>
+</div>
+<div class="toolbar">
+  <input class="search-box" type="text" placeholder="搜索关键词... (Ctrl+F)" id="searchInput">
+  <button class="tb-btn" id="expandAll">全部展开</button>
+  <button class="tb-btn" id="collapseAll">全部收起</button>
+  <button class="tb-btn" id="themeToggle">深色模式</button>
+</div>
+<div class="main" id="mainContent">
+  <div class="stats" id="statsContainer"></div>
+  <div id="sectionsContainer"></div>
+  <div id="takeawaysContainer"></div>
+  <div id="homeworkContainer"></div>
+</div>
+
+<script>
+// 修复classList拼写错误问题（原版有bug）
+function toggleSection(el) { 
+  const section = el.closest('.section');
+  if (section) {
+    section.classList.toggle('open');
+  }
+}
+
+function toggleTopic(el) { 
+  const topic = el.closest('.topic');
+  if (topic) {
+    topic.classList.toggle('open');
+  }
+}
+
+// 修复搜索功能问题 - 搜索时先展开所有折叠块
+document.getElementById('searchInput').addEventListener('input', function() {
+  const q = this.value.trim().toLowerCase();
+  
+  // 如果搜索词不为空，先展开所有折叠块
+  if (q) {
+    document.querySelectorAll('.section').forEach(s => s.classList.add('open'));
+    document.querySelectorAll('.topic').forEach(t => t.classList.add('open'));
+  }
+  
+  document.querySelectorAll('.section').forEach(sec => {
+    let secMatch = false;
+    sec.querySelectorAll('.topic').forEach(top => {
+      const match = !q || top.textContent.toLowerCase().includes(q);
+      top.style.display = match ? '' : 'none';
+      if (match) { secMatch = true; }
+    });
+    sec.style.display = secMatch ? '' : 'none';
+  });
+  
+  // 添加搜索高亮
+  if (q) {
+    document.querySelectorAll('.topic').forEach(top => {
+      if (top.style.display !== 'none') {
+        highlightText(top, q);
+      }
+    });
+  } else {
+    // 清除高亮
+    document.querySelectorAll('.search-highlight').forEach(el => {
+      el.outerHTML = el.textContent;
+    });
+  }
+});
+
+// 搜索高亮函数
+function highlightText(element, keyword) {
+  // 清除之前的高亮
+  element.querySelectorAll('.search-highlight').forEach(el => {
+    el.outerHTML = el.textContent;
+  });
+  
+  // 添加新高亮
+  const regex = new RegExp(`(${keyword})`, 'gi');
+  const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+  const textNodes = [];
+  let node;
+  while (node = walker.nextNode()) {
+    textNodes.push(node);
+  }
+  
+  textNodes.forEach(textNode => {
+    if (textNode.nodeValue.toLowerCase().includes(keyword.toLowerCase())) {
+      const span = document.createElement('span');
+      span.className = 'search-highlight';
+      span.textContent = textNode.nodeValue;
+      textNodes.parentNode.replaceChild(span, textNode);
+    }
+  });
+}
+
+// 增加键盘快捷键
+document.addEventListener('keydown', function(e) {
+  // Ctrl+F 聚焦搜索框
+  if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+    e.preventDefault();
+    document.getElementById('searchInput').focus();
+  }
+  
+  // Esc 收起所有
+  if (e.key === 'Escape') {
+    document.getElementById('collapseAll').click();
+    document.getElementById('searchInput').blur();
+  }
+});
+
+// 主题切换
+let dark = false;
+document.getElementById('themeToggle').onclick = function() {
+  dark = !dark;
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : '');
+  this.textContent = dark ? '浅色模式' : '深色模式';
+  
+  // 保存主题偏好到localStorage
+  localStorage.setItem('theme', dark ? 'dark' : 'light');
+};
+
+// 页面加载时恢复主题偏好
+window.addEventListener('DOMContentLoaded', function() {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    dark = true;
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('themeToggle').textContent = '浅色模式';
+  }
+});
+
+// 全部展开
+document.getElementById('expandAll').onclick = () => {
+  document.querySelectorAll('.section').forEach(s => s.classList.add('open'));
+  document.querySelectorAll('.topic').forEach(t => t.classList.add('open'));
+};
+
+// 全部收起
+document.getElementById('collapseAll').onclick = () => {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('open'));
+  document.querySelectorAll('.topic').forEach(t => t.classList.remove('open'));
+};
+
+// 渲染函数
+function render(data) {
+  document.title = data.title;
+  document.getElementById('heroTitle').textContent = data.title;
+  document.getElementById('heroSub').textContent = data.subtitle || '';
+  
+  // Stats
+  const sc = document.getElementById('statsContainer');
+  if (data.stats && data.stats.length) {
+    sc.innerHTML = data.stats.map(s =>
+      `<div class="stat-card"><div class="num" style="color:${ACCENT_COLORS[(s.color||1)-1]}">${s.num}</div><div class="label">${s.label}</div></div>`
+    ).join('');
+  }
+  
+  // Sections
+  const c = document.getElementById('sectionsContainer');
+  c.innerHTML = data.sections.map(sec => {
+    const topics = sec.topics.map((t, ti) => {
+      let kb = '';
+      if (t.core) kb += `<div class="kb kb-core"><div class="kb-label">◆ 核心提炼</div>${t.core}</div>`;
+      if (t.warn) kb += `<div class="kb kb-warn"><div class="kb-label">⚠ 易错警示</div>${t.warn}</div>`;
+      if (t.ext)  kb += `<div class="kb kb-ext"><div class="kb-label">► 举一反三</div>${t.ext}</div>`;
+      if (t.orig) kb += `<div class="kb" style="background:var(--bg2);border-left:3px solid var(--border)"><div class="kb-label" style="color:var(--text3)">✧ 原文摘要</div>${t.orig}</div>`;
+      return `<div class="topic"><div class="topic-head" onclick="toggleTopic(this)"><div class="topic-num">${ti+1}</div><div class="title">${t.title}</div><div class="brief">${t.brief||''}</div><div class="tarrow">▶</div></div><div class="topic-body"><div class="topic-body-inner">${kb}</div></div></div>`;
+    }).join('');
+    return `<div class="section sec-${sec.cls||'platform'} open"><div class="section-head" onclick="toggleSection(this)"><div class="ico">${sec.icon||'★'}</div><div class="info"><h2>${sec.title}</h2><div class="desc">${sec.desc||''}</div></div><div class="arrow">▶</div></div><div class="section-body"><div class="section-body-inner">${topics}</div></div></div>`;
+  }).join('');
+  
+  // Takeaways
+  const tk = document.getElementById('takeawaysContainer');
+  if (data.takeaways && data.takeaways.length) {
+    tk.innerHTML = `<div class="takeaways"><h2>核心要点回顾</h2><ol>${data.takeaways.map(t => `<li>${t}</li>`).join('')}</ol></div>`;
+  }
+  
+  // Homework
+  const hw = document.getElementById('homeworkContainer');
+  if (data.homework && data.homework.length) {
+    hw.innerHTML = `<div class="homework"><h2>实践作业</h2>${data.homework.map(h => `<div class="hw-item"><strong>${h.title}</strong><br>${h.content}</div>`).join('')}</div>`;
+  }
+}
+
+// 颜色数组
+const ACCENT_COLORS = ['var(--accent1)','var(--accent2)','var(--accent3)','var(--accent4)','var(--accent5)'];
+
+// ===== DATA INJECTION POINT =====
+const DATA = {
+  "title": "美客多巴西本土店·推广获客篇（第5-7章）",
+  "subtitle": "",
+  "sections": [
+    {
+      "cls": "platform",
+      "icon": "★",
+      "title": "第5章：物流方案——FULL仓与自发货",
+      "desc": "物流是巴西电商的核心痛点。巴西国土面积排名世界第五，基础设施分布不均，尾程配送成本高昂，关税体系极其复杂。本章将聚焦美客多巴西站三大物流模式——FULL仓、Flex和自发货，从成本结构、时效标准到库存",
+      "topics": []
+    },
+    {
+      "cls": "tax",
+      "icon": "◆",
+      "title": "5.1 物流模式对比",
+      "desc": "美客多巴西站为卖家提供三种物流模式，各自对应不同的时效、成本和流量权重。选择哪种模式，决定了你的起跑线在哪个位置。",
+      "topics": [
+        {
+          "title": "5.1.1 FULL仓（官方仓）",
+          "brief": "",
+          "core": "<p>FULL仓是美客多自营仓储配送体系，卖家将货物提前发至美客多巴西境内的官方仓库，平台负责存储、拣货、打包和末端配送。<br />\n| 维度 | 具体说明 |<br />\n|------|---------|<br />\n| 配送时效 | 2~5个工作日（覆盖巴西大部分地区） |<br />\n| 配送范围 | 巴西全国，含偏远地区 |<br />\n| 流量权重 | 最高——FULL标签+绿色边框+搜索加权 |<br />\n| 转化率提升 | 15%~25%（对比非FULL商品） |<br />\n| 计费方式 | 按仓储体积+配送距离+重量综合计费 |</p><p>并非仅仅在于时效。FULL商品在搜索结果中会被平台自动添加绿色边框和\"FULL\"标签，这个标签本身就是转化率催化剂。某3C卖家同步测试同一款产品，FULL仓版本比自发货版本在30天内累计多出73%的订单，转化率差异达到21.6%。<br />\n<strong>核心劣势</strong>在于库存风险。货物进入FULL仓后，如果滞销，仓储费会持续消耗利润。且FULL仓退货处理周期长，退货商品重新上架审核严格。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "5.1.2 Flex（小件快送）",
+          "brief": "",
+          "core": "<p>Flex模式适用于重量较轻的商品（通常2kg以下），由卖家自行发货但使用美客多合作的物流商（如Correios、JadLog等），物流信息同步至平台系统。<br />\n| 维度 | 具体说明 |<br />\n|------|---------|<br />\n| 配送时效 | 3~5个工作日 |<br />\n| 适用重量 | 通常2kg以内 |<br />\n| 计费方式 | 按重量计费，阶梯价格 |<br />\n| 流量权重 | 中等——无FULL标签但有\"Envio Flex\"标识 |<br />\n| 转化率 | 略低于FULL，高于自发货 |<br />\nFlex是FULL仓的补充方案。当FULL仓仓容不足、或商品因尺寸/品类限制无法入仓时，Flex可作为替代选择。它的成本弹性较高——重量越轻、配送距离越近，运费越低。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "5.1.3 自发货",
+          "brief": "",
+          "core": "<p>自发货指卖家自行联系物流商（如第三方货代、邮政小包等）完成配送，平台仅提供面单或仅标记物流单号。<br />\n| 维度 | 具体说明 |<br />\n|------|---------|<br />\n| 配送时效 | 7~15个工作日（跨境发货更长） |<br />\n| 计费方式 | 自行协商，差异大 |<br />\n| 流量权重 | 最低——无任何平台标识或加权 |<br />\n| 转化率影响 | 明显低于FULL和Flex |<br />\n| 适用场景 | 测试新品、大件异形件、FULL仓拒收商品 |<br />\n自发货的优势在于灵活度——不受入仓规则限制、不产生仓储费、退货处理由卖家自主。但代价是搜索权重损失明显，且消费者看到配送时效7天以上时，跳失率显著增加。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "5.1.4 三种模式横向对比",
+          "brief": "",
+          "core": "<table>\n<thead>\n<tr>\n<th>对比维度</th>\n<th>FULL仓</th>\n<th>Flex</th>\n<th>自发货</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>配送时效</td>\n<td>2~5工作日</td>\n<td>3~5工作日</td>\n<td>7~15工作日</td>\n</tr>\n<tr>\n<td>每单物流成本</td>\n<td>中（按距离+体积）</td>\n<td>中低（按重量）</td>\n<td>低~中（按物流商）</td>\n</tr>\n<tr>\n<td>仓储费用</td>\n<td>有（按体积/天数）</td>\n<td>无</td>\n<td>无</td>\n</tr>\n<tr>\n<td>搜索权重</td>\n<td>最高</td>\n<td>中</td>\n<td>最低</td>\n</tr>\n<tr>\n<td>转化率差异</td>\n<td>基准（+0%）</td>\n<td>约低8%~12%</td>\n<td>约低15%~25%</td>\n</tr>\n<tr>\n<td>平台标签</td>\n<td>FULL绿色边框</td>\n<td>Envio Flex标识</td>\n<td>无</td>\n</tr>\n<tr>\n<td>退货处理</td>\n<td>平台处理</td>\n<td>卖家处理</td>\n<td>卖家处理</td>\n</tr>\n<tr>\n<td>适合品类</td>\n<td>标品、高周转、小件</td>\n<td>轻小件、试水品</td>\n<td>异形件、超大件、低价值品</td>\n</tr>\n<tr>\n<td>适合阶段</td>\n<td>稳定期、规模期</td>\n<td>成长期</td>\n<td>测试期、过渡期</td>\n</tr>\n</tbody>\n</table><h2>如果你的月销量已达到每月300~500单的门槛，必须将主力产品切换至FULL仓。这不是一个\"可选项\"，而是从\"小卖家\"进阶到\"中型卖家\"的必经之路。</h2>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "product",
+      "icon": "♣",
+      "title": "5.2 2026年巴西运费重大变化",
+      "desc": "2026年，美客多对巴西站的运费体系进行了结构性调整。这次调整的幅度之大、影响之广，被业内人士称为\"运费大洗牌\"。",
+      "topics": [
+        {
+          "title": "5.2.1 运费体系重构：从固定费率到动态定价",
+          "brief": "",
+          "core": "<p>2026年之前，美客多巴西站对大多数品类采用相对固定的运费标准，卖家可以较为准确地预估物流成本。新的运费体系取消了固定运费，取而代之的是<strong>29个重量区间 × 8个价格区间 = 232种运费组合</strong>。<br />\n| 变革维度 | 旧体系 | 新体系 |<br />\n|---------|-------|-------|<br />\n| 定价方式 | 固定运费 | 动态组合定价 |<br />\n| 组合数量 | 约10~20种 | 232种 |<br />\n| 运费范围 | 相对稳定 | 最高涨幅达400% |<br />\n| 覆盖范围 | 部分商品 | 售价&gt;19雷亚尔商品全部纳入 |<br />\n<strong>适用范围</strong>：商品售价大于19雷亚尔的，全部纳入新运费计算体系。这意味着绝大多数在售商品都会受到新体系影响。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "5.2.2 运费暴涨的品类分布",
+          "brief": "",
+          "core": "<p>受新体系冲击最大的品类集中在以下三类：<br />\n- <strong>大件轻质商品（泡货）</strong>：如抱枕、毛绒玩具、空箱包、塑料收纳盒<br />\n- <strong>体积规整但偏重商品</strong>：如小家电、工具套装<br />\n- <strong>低客单价标品</strong>：售价在19~39雷亚尔之间，运费占比过高的商品</p><p>一款售价39雷亚尔的塑料收纳盒，旧体系下运费约12雷亚尔（运费占比30.8%），新体系下运费暴增至48雷亚尔（运费占比123%）。这意味着卖出这件商品，仅运费一项就要倒贴9雷亚尔。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "5.2.3 体积重严格化：泡货成本陷阱",
+          "brief": "",
+          "core": "<p>新体系最关键的规则变化是<strong>体积重计算方式被严格执行</strong>。<br />\n实重与体积重取大值计费，体积重计算公式为：</p>\n<pre class=\"codehilite\"><code>体积重(kg) = 长(cm) × 宽(cm) × 高(cm) ÷ 6000\n</code></pre>",
+          "warn": "",
+          "ext": "<p>一款包装尺寸为40cm × 30cm × 20cm、实际重量仅0.5kg的手机壳：</p>\n<pre class=\"codehilite\"><code>体积重 = 40 × 30 × 20 ÷ 6000 = 4.0kg\n计费重量 = max(0.5kg, 4.0kg) = 4.0kg\n</code></pre>\n\n<p>实际重量0.5kg的商品，按4.0kg计费，物流成本飙升8倍。这就是\"泡货\"——体积大但重量轻的商品，在新运费体系下成本结构被彻底打破。<br />\n<strong>避坑方案</strong>：<br />\n| 策略 | 具体做法 | 效果 |<br />\n|------|---------|------|<br />\n| 压缩包装 | 使用真空袋、定制小尺寸包装盒 | 可减少体积重30%~50% |<br />\n| 减少内托 | 在保护完好的前提下取消多余填充物 | 可减少体积重10%~20% |<br />\n| 改用软包装 | 信封袋替代硬纸盒，降低包装厚度 | 适用于纺织品、服装类 |<br />\n| 产品设计优化 | 可拆卸设计，分体包装运输 | 大件品类战略性调整 |<br />\n<strong>重点关注指标</strong>：上架前务必计算\"密度比 = 实重(kg) ÷ 体积重(kg)\"。密度比低于0.3的商品属于高危泡货，建议重新评估包装方案或考虑更换产品。</p>\n<hr />",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "extra",
+      "icon": "●",
+      "title": "5.3 FULL仓入库SOP",
+      "desc": "成功申请FULL仓权限只是第一步，真正的考验从入库开始。美客多对FULL仓入库有着极为严格的验收标准。",
+      "topics": [
+        {
+          "title": "5.3.1 入库前置要求",
+          "brief": "",
+          "core": "<p>在货物发往FULL仓之前，必须确保以下条件满足：<br />\n| 前置条件 | 具体要求 | 合规失败后果 |<br />\n|---------|---------|------------|<br />\n| 标签规范 | 每个单品贴FNSKU标签，条码清晰可扫描 | 整批拒收 |<br />\n| EAN码 | 必须提供有效EAN/UPC码，与国际通用编码一致 | 无法创建入库单 |<br />\n| 外箱尺寸 | 长宽高精确到0.1cm，与入库单信息一致 | 超差0.5cm直接拒收 |<br />\n| 外箱重量 | 精确到0.01kg，与入库单信息一致 | 超差拒收 |<br />\n| 单品包装 | 每个单品必须有独立销售包装（非裸装） | 拒收 |<br />\n| 保质期标记 | 如有保质期，需在外箱和单品上清晰标注 | 拒收 |</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "5.3.2 拒收率数据",
+          "brief": "",
+          "core": "<p>美客多FULL仓的拒收率在拉美电商平台中处于较高水平：<br />\n| 拒收原因 | 占比 | 典型场景 |<br />\n|---------|-----|---------|<br />\n| 外箱尺寸偏差 &gt;0.5cm | 约35% | 纸箱受压变形，入库测量值超出申报值 |<br />\n| 标签问题（模糊/缺失/错误） | 约25% | 标签打印机墨量不足、标签粘贴位置不符要求 |<br />\n| 外箱重量偏差 | 约20% | 实际重量与入库单差异超过5% |<br />\n| EAN码不可扫描 | 约12% | EAN码与平台系统记录不匹配 |<br />\n| 包装不合规 | 约8% | 单品无独立包装、包装破损 |<br />\n<strong>关键提示</strong>：拒收不仅仅是退回重发的问题。拒收记录会进入美客多系统的\"入库合规档案\"，累计拒收率过高的卖家会被限制入库权限甚至冻结FULL仓功能。因此，入库前的质检环节不能外包给货代——必须由团队亲自逐箱核查。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "5.3.3 小批量多种类试水策略",
+          "brief": "",
+          "core": "<p>对于首次使用FULL仓的卖家，推荐采用<strong>小批量多种类</strong>的试水策略：<br />\n| 步骤 | 操作内容 | 目的 |<br />\n|------|---------|------|<br />\n| 第1步 | 选择5~10个SKU，每SKU备货20~50件 | 控制首次入库规模 |<br />\n| 第2步 | 优先选择体积适中、重量轻、历史转化率高的商品 | 降低滞销风险 |<br />\n| 第3步 | 使用定制尺寸的纸箱，预留5%的余量应对测量误差 | 降低尺寸拒收率 |<br />\n| 第4步 | 记录每箱的长宽高和重量，与入库单逐一核对 | 确保信息100%一致 |<br />\n| 第5步 | 入库后第1周每天监控库存消耗速度 | 确认动销是否符合预期 |<br />\n<strong>试水周期建议</strong>：首次入库后观察30天，收集FULL仓的周转数据，再根据实际动销情况制定第2批备货计划。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "5.3.4 入仓预约机制",
+          "brief": "",
+          "core": "<p>美客多FULL仓实行预约入仓制度：<br />\n- 至少提前3个工作日通过卖家后台预约<br />\n- 每个预约时段有数量限制，热门时段需抢约<br />\n- 迟到或未到会影响后续预约优先级<br />\n<strong>预约技巧</strong>：<br />\n- 周二至周四的预约时段相对充裕，周一是最拥挤的<br />\n- 每次预约尽量凑满最小批量（减少预约频率）<br />\n- 大促前2~3周提前锁定预约时段（黑五、Prime Day等前夕预约极难抢到）</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "5.3.5 仓储费陷阱",
+          "brief": "",
+          "core": "<p>FULL仓不是免费存到天荒地老。仓储费采用阶梯计费：<br />\n| 存储天数 | 费率 | 对比基准线 |<br />\n|---------|-----|-----------|<br />\n| 1~30天 | 免费或极低 | 基准期 |<br />\n| 31~60天 | 标准费率 | 成本上升 |<br />\n| 61~90天 | 标准费率的1.5倍 | 明显高于市场价 |<br />\n| 91天以上 | 标准费率的3~5倍 + 长期仓储附加费 | 利润黑洞 |<br />\n<strong>仓储费暴增的典型场景</strong>：某卖家在12月大促前大量备货，入仓1000件。大促实际售出仅320件，剩余680件进入\"长期库存\"阶段。第3个月起，仓储费从每月120雷亚尔骤增至1,860雷亚尔，直接吞噬了该SKU上季度的全部利润。<br />\n<strong>应对策略</strong>：第30天时盘点库存，对周转率低于预期的SKU立即启动降价或捆绑促销方案，务必在第60天前将冗余库存压至安全水位。</p>\n<hr />",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "platform",
+      "icon": "★",
+      "title": "5.4 备货公式与库存策略",
+      "desc": "库存管理是FULL仓运营的核心竞争力。备多了——仓储费吞噬利润；备少了——断货失去权重累积。两者之间的平衡点，由一套精密的计算模型决定。",
+      "topics": [
+        {
+          "title": "5.4.1 安全库存公式",
+          "brief": "",
+          "core": "<pre class=\"codehilite\"><code>安全库存 = Z × σ × √LT\n</code></pre>\n\n<p>其中：<br />\n- <strong>Z</strong>：服务水平系数（95%服务水平取1.65，97.5%取1.96，99%取2.33）<br />\n- <strong>σ</strong>：日销量标准差（取过去30天数据的标准差）<br />\n- <strong>LT</strong>：补货周期（补货发出到上架销售的总天数）<br />\n<strong>简化计算（适用于中小卖家）</strong>：</p>\n<pre class=\"codehilite\"><code>安全库存 = 日均销量 × 补货周期天数 × 0.5\n</code></pre>\n\n<p><strong>示例</strong>：某商品日均销量20件，补货周期30天，取50%缓冲：</p>\n<pre class=\"codehilite\"><code>安全库存 = 20 × 30 × 0.5 = 300件\n</code></pre>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "5.4.2 补货周期的完整构成",
+          "brief": "",
+          "core": "<p>补货不是\"下单后3天到货\"那么简单。供应链各个环节的时间累加构成了真实的补货周期：<br />\n| 环节 | 耗时 | 说明 |<br />\n|------|------|------|<br />\n| 国内采购/生产 | 7~15天 | 工厂排期+原材料采购+生产+质检 |<br />\n| 国内集货 | 1~3天 | 集中多个SKU，拼货装柜 |<br />\n| 国际海运 | 35~50天 | 中国→巴西桑托斯港，含清关和等待时间 |<br />\n| 巴西本地运输 | 3~7天 | 桑托斯港→FULL仓/备货仓 |<br />\n| 入库预约等待 | 3~7天 | FULL仓预约排队 |<br />\n| 入库上架 | 2~5天 | 验收→上架→可售状态 |<br />\n| <strong>总补货周期</strong> | <strong>51~87天</strong> | 建议取中位数68天 |</p><p>从国内下单补货到在巴西FULL仓可售，中间至少需要2个月。这意味着你预测的不是未来2周的销量，而是未来2~3个月的销量。误差的积累效应极大。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "5.4.3 推荐库存计算公式",
+          "brief": "",
+          "core": "<pre class=\"codehilite\"><code>再订货点(ROP) = 日均销量 × 补货周期天数 + 安全库存\n最大库存水平 = 再订货点 + 单批补货量\n</code></pre>",
+          "warn": "",
+          "ext": "<table>\n<thead>\n<tr>\n<th>参数</th>\n<th>数值</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>日均销量</td>\n<td>25件</td>\n</tr>\n<tr>\n<td>补货周期</td>\n<td>65天</td>\n</tr>\n<tr>\n<td>安全库存（50%缓冲）</td>\n<td>812件</td>\n</tr>\n<tr>\n<td>再订货点</td>\n<td>25 × 65 + 812 = 2,437件</td>\n</tr>\n<tr>\n<td>单批补货量（30天销量）</td>\n<td>750件</td>\n</tr>\n<tr>\n<td>最大库存水平</td>\n<td>2,437 + 750 = 3,187件</td>\n</tr>\n<tr>\n<td>当库存降至2,437件时触发补货警报，立即启动下一批次采购。</td>\n<td></td>\n</tr>\n</tbody>\n</table>",
+          "orig": ""
+        },
+        {
+          "title": "5.4.4 周转天数30天生死线",
+          "brief": "",
+          "core": "<p><strong>库存周转天数</strong>是衡量FULL仓健康度的核心指标：</p>\n<pre class=\"codehilite\"><code>周转天数 = 当前库存量 ÷ 日均销量\n</code></pre>\n\n<p>美客多FULL仓的运营经验表明，周转天数控制在30天以内是最优区间。超过这个阈值，风险开始显著增加：<br />\n| 周转天数 | 库存健康度 | 风险状态 | 建议行动 |<br />\n|---------|----------|---------|---------|<br />\n| &lt;15天 | 优秀 | 可能面临断货风险 | 适当增加安全库存 |<br />\n| 15~30天 | 健康 | 低风险 | 维持当前节奏 |<br />\n| 30~45天 | 预警 | 中度风险 | 启动促销加速消耗 |<br />\n| 45~60天 | 高危 | 高风险 | 立即降价清仓 |<br />\n| &gt;60天 | 危险 | 极高风险 | 滞销清仓处理 |<br />\n<strong>数据支撑</strong>：对300个FULL仓SKU的追踪数据显示，周转天数超过45天的SKU，最终产生长期仓储费（仓储费占售价比超过15%）的概率是周转天数30天以内SKU的4.7倍。</p>\n<hr />",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "tax",
+      "icon": "◆",
+      "title": "5.5 滞销品清仓四步策略",
+      "desc": "滞销是FULL仓运营中最棘手的问题。处理得当，可以从泥潭中回收大部分资金；处理不当，仓储费持续燃烧，最终血本无归。",
+      "topics": [
+        {
+          "title": "5.5.1 滞销的定义与发现时机",
+          "brief": "",
+          "core": "<p>在美客多FULL仓场景下，建议将以下标准定义为\"滞销\"：<br />\n- 商品入库超过45天，库存消耗不足30%<br />\n- 日均销量低于补货前预测值的20%<br />\n- 周转天数超过60天<br />\n<strong>发现滞销的时机越早越好</strong>。前文已述，仓储费在第61天开始成倍增长。因此，在第30天的库存盘点中就应该识别出潜在滞销品，而不是等到仓储费暴增后再处理。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "5.5.2 四步清仓策略",
+          "brief": "",
+          "core": "<h4>第1步：阶梯降价（第30~45天）</h4>\n<p>不要一次性降价到底。分阶段降价的经济效益显著优于一次性降价：<br />\n| 降价阶段 | 降价幅度 | 持续时间 | 目标 |<br />\n|---------|---------|---------|------|<br />\n| 第1次降价 | 降价10%~15% | 5~7天 | 测试价格弹性，清理边缘库存 |<br />\n| 第2次降价 | 再降10%~15%（累计20%~30%） | 5~7天 | 加速消耗 |<br />\n| 第3次降价 | 再降10%~15%（累计30%~45%） | 5~7天 | 清空剩余库存 |<br />\n| 底线价 | 成本价或略亏 | 不限 | 保底清空 |<br />\n<strong>分阶段降价为什么更优</strong>？三个原因：一是每次降价都能带来一轮新的流量脉冲，持续吸引新的买家群体；二是给一部分\"价格敏感但愿意等待\"的消费者时间窗口下单；三是一步到位降到最低价，会向市场传递\"这个商品有问题\"的信号，反而抑制转化率。<br />\n实测数据显示，分阶段降价比一次性降价到最低价，平均多回收23%的资金。</p>\n<h4>第2步：捆绑销售（第45~60天）</h4>\n<p>当阶梯降价效果不理想时，转入捆绑销售策略：<br />\n| 捆绑方式 | 操作 | 适用场景 |<br />\n|---------|------|---------|<br />\n| 高低搭配 | 滞销品+热销品打包，总价略低于热销品单独售价 | 滞销品有互补属性 |<br />\n| 买一赠一 | 购买热销品赠送滞销品 | 滞销品本身作为赠品有吸引力 |<br />\n| 套装组合 | 多个滞销品组成套装，定一个清仓总价 | 多个滞销品同品类 |<br />\n| 跨品捆绑 | 滞销品+畅销低配件，设置组合折扣 | 滞销品与热销品无直接关联 |</p><p>活动清仓阶段的单次活动出单率如果低于5%，说明价格仍然不够低，或者商品本身在FULL仓体系内已经没有竞争力。此时应果断转入第4步。</p>\n<h4>第4步：本地批发（第75天以后）</h4>\n<p>当线上渠道已经无法有效消化库存时，启动线下批发渠道：<br />\n| 批发渠道 | 对接方式 | 回收率 |<br />\n|---------|---------|--------|<br />\n| 巴西本地地推团队 | 通过社交渠道（WhatsApp、Instagram）联系本地小B买家 | 回收获利10%~30% |<br />\n| 批发平台 | 使用Brás、25 de Março等批发市场介绍人 | 回收成本价~10%利润 |<br />\n| 统货商 | 整批出售给清货公司，价格按品相和品类打包 | 回收成本价的30%~50% |<br />\n| 本地跳蚤市场/路边摊 | 极短链路的终极方案 | 回收成本价以下 |</p>",
+          "warn": "<p>第4步的回收率远低于前3步，但这是避免持续支付仓储费的止损方案。如果发现商品在第1~3步中完全没有动销迹象，不要犹豫，直接跳到第4步。每多存一个月，仓储费就吃掉一部分回收价值。</p>",
+          "ext": "<p>捆绑销售不是为了捆绑而捆绑——核心逻辑是把滞销品从\"独立商品\"转变为\"让价容器\"。买家感知到的是\"套装划算\"，而不是\"卖家在甩卖低价品\"。</p>\n<h4>第3步：活动清仓（第60~75天）</h4>\n<p>利用美客多的站内促销工具进行最后一轮规模清仓：<br />\n| 工具 | 操作方式 | 清仓效果 |<br />\n|------|---------|---------|<br />\n| 平台大促报名 | 申请参与Meli+、黑五、Dia das Mães等大促活动 | 流量最大，但折扣要求高（通常要求≥20%） |<br />\n| 优惠券 | 发放定向优惠券（公开券/粉丝券） | 精准触达，成本可控 |<br />\n| 限时秒杀 | 报名站内秒杀活动 | 短时间内脉冲式出单 |<br />\n| 满减活动 | 满X雷亚尔减Y雷亚尔 | 提升客单价，带动整体消耗 |</p>",
+          "orig": ""
+        },
+        {
+          "title": "5.5.3 四步策略决策流程",
+          "brief": "",
+          "core": "<pre class=\"codehilite\"><code>库存入库\n    ↓\n第30天盘点 → 周转天数&lt;45天 → 继续正常销售\n    ↓ 周转天数≥45天\n第1步：阶梯降价（7~14天）\n    ↓ 销售回暖达到目标\n恢复正常运营\n    ↓ 销量无明显提升\n第2步：捆绑销售（7~14天）\n    ↓ 销售回暖达到目标\n恢复正常运营\n    ↓ 销量仍不达标\n第3步：活动清仓（7~14天）\n    ↓ 出清成功\n完结\n    ↓ 仍有大量库存\n第4步：本地批发\n    ↓\n终极清仓\n</code></pre><h2>时间窗口不可逆。在仓储费倍增的第61天到来之前，必须完成第一波（阶梯降价）清仓尝试。这是整个清仓策略的时间底线。</h2>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "product",
+      "icon": "♣",
+      "title": "本章小结",
+      "desc": "| 关键模块 | 核心要点 | 执行建议 |",
+      "topics": []
+    },
+    {
+      "cls": "extra",
+      "icon": "●",
+      "title": "第6章：MercadoAds结构与关键词投放",
+      "desc": "---",
+      "topics": []
+    },
+    {
+      "cls": "platform",
+      "icon": "★",
+      "title": "6.1 MercadoAds广告产品体系",
+      "desc": "MercadoAds为卖家提供了三种核心广告类型，每种类型对应不同的营销目标和展示位置。合理选择广告类型是投放成功的第一步。",
+      "topics": [
+        {
+          "title": "6.1.1 三种广告类型",
+          "brief": "",
+          "core": "<p><strong>关键词广告（Anúncios por Palavras-chave）</strong><br />\n关键词广告是 MercadoLibre 站内搜索广告，与亚马逊的Sponsored Products类似。当买家在搜索框中输入关键词时，广告产品会出现在搜索结果页的置顶位置和中间混排位置。计费方式为CPC（按点击付费），卖家仅为实际点击付费。<br />\n展示位置特征：<br />\n- 搜索结果页第1-3位为广告位，标注\"Anúncio\"标识<br />\n- 搜索结果页中间每隔20个自然位插入一个广告位<br />\n- 产品详情页\"相关产品\"区域也有广告位<br />\n<strong>展示广告（Anúncios por Exibição）</strong><br />\n展示广告基于买家的浏览行为和类目定向进行投放，出现在产品详情页侧边栏和站内推荐位。展示广告同样采用CPC计费，但CPC通常比关键词广告低30-50%。这类广告适合用于类目拦截和竞品流量截取。<br />\n<strong>品牌广告（Anúncios de Marca）</strong><br />\n品牌广告是 MercadoAds 的高阶广告形式，允许卖家在搜索结果页顶部展示品牌Logo、多款产品和自定义标语。品牌广告按CPM（千次展示）计费，适合品牌知名度建设。目前品牌广告仅向品牌注册卖家开放，且需要一定审核周期。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "6.1.2 不同阶段的广告组合策略",
+          "brief": "",
+          "core": "<table>\n<thead>\n<tr>\n<th>阶段</th>\n<th>核心目标</th>\n<th>推荐广告类型</th>\n<th>预算占比</th>\n<th>ACOS容忍度</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><strong>新品期（0-30天）</strong></td>\n<td>测款、积累数据</td>\n<td>自动关键词广告</td>\n<td>60%</td>\n<td>50-70%</td>\n</tr>\n<tr>\n<td><strong>成长期（30-90天）</strong></td>\n<td>放量、打排名</td>\n<td>手动精准+词组</td>\n<td>70%</td>\n<td>35-45%</td>\n</tr>\n<tr>\n<td><strong>成熟期（90天以上）</strong></td>\n<td>利润最大化</td>\n<td>精准匹配+品牌广告</td>\n<td>80%</td>\n<td>25%以内</td>\n</tr>\n</tbody>\n</table>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "6.1.3 巴西与墨西哥CPC差异",
+          "brief": "",
+          "core": "<p>巴西站和墨西哥站虽然同属 MercadoLibre 平台，但广告竞争环境差异显著。根据大量卖家实际投放数据：<br />\n- <strong>巴西站平均CPC：R$3.0-R$8.0</strong>（约0.5-1.3美元），热门品类可达R$12以上<br />\n- <strong>墨西哥站平均CPC：MXN$5.0-MXN$15.0</strong>（约0.25-0.75美元）<br />\n巴西站CPC约为墨西哥站的2倍，主要原因有三：<br />\n1. <strong>巴西关税壁垒高</strong>——本地卖家占绝对主导，中国卖家少，竞争相对集中在本地卖家之间<br />\n2. <strong>巴西消费者购买力更强</strong>——客单价普遍高于墨西哥，广告ROI空间更大<br />\n3. <strong>巴西物流成本更高</strong>——卖家将物流成本计入售价，推高客单价和广告竞争出价<br />\n这意味着，在巴西站做广告，需要更高的客单价和毛利率来支撑广告投入。如果你的产品在巴西站售价低于R$50，广告投放几乎不可能盈利。</p>\n<hr />",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "tax",
+      "icon": "◆",
+      "title": "6.2 广告账户结构设计",
+      "desc": "MercadoAds的广告账户采用三层结构：**系列（Campanha）→ 组（Grupo）→ 关键词（Palavra-chave）**。合理的账户结构直接影响数据分析和优化效率。",
+      "topics": [
+        {
+          "title": "6.2.1 三层结构逻辑",
+          "brief": "",
+          "core": "<pre class=\"codehilite\"><code>Campanha（系列）          →  预算、出价策略、投放时间\n    └── Grupo（广告组）    →  产品列表、匹配方式、否定关键词\n            └── Palavra-chave（关键词） →  具体关键词及出价\n</code></pre>\n\n<p>每一层承担不同的管理职责：<br />\n- <strong>系列层</strong>：控制整体预算和投放日程。可设置每日预算上限和投放时间段。<br />\n- <strong>广告组层</strong>：管理产品投放和关键词匹配策略。一个广告组通常投放1-3个产品。<br />\n- <strong>关键词层</strong>：管理具体关键词及其出价。每个关键词独立设置出价。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "6.2.2 按产品线划分系列",
+          "brief": "",
+          "core": "<p>不建议将所有产品塞进一个系列，而应按照产品线和投放目的划分：<br />\n<strong>系列一：爆款捍卫系列</strong><br />\n- 目的：保护已打造成的爆款，防止竞品抢占流量<br />\n- 产品：月销100+的成熟产品<br />\n- 预算：总广告预算的50-60%<br />\n- 策略：以精准匹配为主，ACOS目标控制在20%以内<br />\n- 出价：可接受更高出价，因为转化率稳定<br />\n<strong>系列二：新品测款系列</strong><br />\n- 目的：测试新品市场反应，收集关键词数据<br />\n- 产品：上架30天内新品<br />\n- 预算：总广告预算的20-25%<br />\n- 策略：自动广告为主，开启广泛+词组匹配<br />\n- 考核标准：前7天仅看点击率，第2周起看转化率<br />\n<strong>系列三：清仓系列</strong><br />\n- 目的：清理积压库存，回笼资金<br />\n- 产品：库存周转超过90天或即将下架的商品<br />\n- 预算：总广告预算的10%<br />\n- 策略：低出价自动广告，牺牲利润换销量<br />\n- ACOS容忍度：可接受80-100%，只要整体不亏</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "6.2.3 广告组关键词数量控制",
+          "brief": "",
+          "core": "<p>每个广告组的关键词数量直接影响曝光分配效率。根据MercadoLibre的广告算法特性：<br />\n- <strong>最佳范围：5-10个关键词/组</strong><br />\n- 超过10个关键词，低点击词会拉低组内整体质量分<br />\n- 少于5个关键词，数据样本不足，无法有效优化<br />\n实操建议：创建广告组时，将语义相近的关键词放在同一组。例如将\"capa de celular iphone 15\"和\"capa iphone 15\"放在一组，将\"capa de silicone iphone 15\"和\"capa de silicone iphone 15 pro\"放在不同组——因为材质词不同，买家意图有差异。</p>\n<hr />",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "product",
+      "icon": "♣",
+      "title": "6.3 关键词匹配方式",
+      "desc": "MercadoAds 提供三种关键词匹配类型，每种匹配方式在流量覆盖面、精准度和ACOS控制上各有优劣。",
+      "topics": [
+        {
+          "title": "6.3.1 广泛匹配（Correspondência Ampla）",
+          "brief": "",
+          "core": "<p>广泛匹配是覆盖面最广的匹配方式，只要买家搜索词中包含关键词中的任意单词，广告即可能触发。<br />\n<strong>优点</strong>：<br />\n- 海量曝光，快速积累数据<br />\n- 发现意料之外的高转化长尾词<br />\n- 适合新品测款阶段<br />\n<strong>缺点</strong>：<br />\n- 流量不精准，容易带来无效点击<br />\n- ACOS容易偏高<br />\n- 必须搭配否定词使用，否则预算会被无关流量消耗殆尽</p>",
+          "warn": "",
+          "ext": "<ul>\n<li>广泛匹配启动的同时，立即设置基础否定词库</li>\n<li>每日监控搜索词报告，将无关词加入否定列表</li>\n<li>广泛匹配跑出的高转化词，提取到精准匹配组</li>\n</ul>",
+          "orig": ""
+        },
+        {
+          "title": "6.3.2 词组匹配（Correspondência de Frase）",
+          "brief": "",
+          "core": "<p>词组匹配要求买家搜索词必须包含完整的关键词词组，且词序一致。相比广泛匹配，精准度有明显提升。<br />\n<strong>优点</strong>：<br />\n- 保留流量扩展能力<br />\n- 过滤掉大量无关流量<br />\n- ACOS可控性增强<br />\n<strong>缺点</strong>：<br />\n- 会漏掉部分可能转化的长尾变体<br />\n- 对关键词顺序敏感，需考虑巴西用户语序习惯<br />\n<strong>适用场景</strong>：<br />\n- 成长期产品扩大流量<br />\n- 新品经过2周自动广告验证后转入</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "6.3.3 精准匹配（Correspondência Exata）",
+          "brief": "",
+          "core": "<p>精准匹配要求买家搜索词与关键词完全相同或语义高度等同，是流量最精准、转化率最高的匹配方式。<br />\n<strong>优点</strong>：<br />\n- 锁定高意向买家，转化率最高<br />\n- ACOS最好控制<br />\n- 适合高预算集中投放<br />\n<strong>缺点</strong>：<br />\n- 流量天花板低，仅靠精准匹配无法放量<br />\n- 对关键词质量要求高，选错词成本大<br />\n<strong>适用场景</strong>：<br />\n- 爆款产品的核心转化词<br />\n- ACOS高企时的优化方向<br />\n- 成熟期利润型投放</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "6.3.4 巴西市场的错拼问题",
+          "brief": "",
+          "core": "<p>巴西用户的拼写错误率在拉美电商平台中居首。实际投放数据显示，搜索词报告中约有15-30%的搜索词存在拼写错误。这是中国卖家容易忽略的流量来源。<br />\n<strong>常见错拼类型</strong>：<br />\n| 正确拼写 | 常见错拼 | 出现频率 |<br />\n|---------|---------|---------|<br />\n| celular | celula, celuar, celullar | 高 |<br />\n| capa de celular | capa de celula, cap de celular | 高 |<br />\n| fone de ouvido | fone de ouvido, fone duvido | 中 |<br />\n| carregador | caregador, carregado, carregdor | 高 |<br />\n| pelicula | película, pelicula de vidro | 中 |<br />\n<strong>应对策略</strong>：<br />\n1. <strong>广泛匹配中加否定词时，也要考虑错拼否定</strong>——例如你的产品是正品，需否定\"gratis\"\"barato\"及其错拼变体<br />\n2. <strong>精准匹配关键词时，主动添加高频错拼词</strong>——错拼词竞争低、CPC低，是性价比极高的流量来源<br />\n3. <strong>每周检查搜索词报告中的错拼词表现</strong>——错拼词转化率通常与正确拼写接近，但CPC低30-50%</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "6.3.5 新品期关键词匹配策略",
+          "brief": "",
+          "core": "<p>新品上线后的匹配策略应遵循\"先窄后宽\"原则：<br />\n- <strong>第1-2周</strong>：仅开启自动广告和手动精准匹配。精准匹配控制ACOS，自动广告用于发现新词。<br />\n- <strong>第3-4周</strong>：从自动广告搜索词报告中筛选点击≥10且转化≥1的关键词，拆入词组匹配组。<br />\n- <strong>第5周以后</strong>：积累到足够数据后，将表现稳定的词保留在精准组，将有曝光但转化一般的关键词放入广泛组做测试。</p>\n<hr />",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "extra",
+      "icon": "●",
+      "title": "6.4 新品广告启动SOP",
+      "desc": "新品广告投放不是\"一把梭\"，而是分阶段推进的系统工程。以下SOP已通过多个品类的实际投放验证。",
+      "topics": [
+        {
+          "title": "6.4.1 第1-2周：数据积累期",
+          "brief": "",
+          "core": "<p><strong>目标</strong>：积累100个以上的点击数据<br />\n<strong>操作步骤</strong>：<br />\n1. <strong>开启自动广告</strong>，出价建议为建议出价的80%<br />\n2. <strong>设置每日预算</strong>：建议R$30-R$50/天（根据客单价调整）<br />\n3. <strong>添加基础否定词</strong>（详见6.5节）<br />\n4. <strong>检查Listing状态</strong>：主图、标题、描述是否完整，是否有评价<br />\n5. <strong>每天检查点击数据</strong>，但不要做任何调整</p>",
+          "warn": "<ul>\n<li>新品没有任何广告历史权重，初始曝光会很低，这是正常的</li>\n<li>前3天数据不具备统计意义，不要基于3天数据做决策</li>\n<li>如果第5天仍然零曝光，检查产品定价是否过高或类目节点是否错误</li>\n<li>100个点击是基础样本量，低于100个点击的ACOS数据不可信</li>\n</ul>",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "6.4.2 第3-4周：数据筛选期",
+          "brief": "",
+          "core": "<p><strong>目标</strong>：筛选高转化词，建立手动广告组<br />\n<strong>操作步骤</strong>：<br />\n1. <strong>导出搜索词报告</strong>，按点击量降序排列<br />\n2. <strong>筛选规则</strong>：<br />\n   - 点击≥10且转化≥1 → 移入手动精准匹配组<br />\n   - 点击≥10且零转化 → 加入否定关键词<br />\n   - 点击＜10 → 留在自动广告继续观察<br />\n3. <strong>手动广告组搭建</strong>：<br />\n   - 创建一个新的精准匹配组<br />\n   - 每组放入5-8个提取出的高转化词<br />\n   - 出价与自动广告中该词的平均CPC持平<br />\n4. <strong>降低自动广告预算30%</strong>，将省出的预算给手动组<br />\n<strong>数据判断标准</strong>：<br />\n| 数据表现 | 判断 | 操作 |<br />\n|---------|------|------|<br />\n| 曝光&gt;500, 点击=0 | 主图/标题问题 | 优化Listing |<br />\n| 点击&gt;30, 转化=0 | 详情页/评价问题 | 优化详情+催评 |<br />\n| 点击&gt;50, ACOS&gt;80% | 出价过高/词不精准 | 降低出价或改为精准匹配 |<br />\n| ACOS&lt;50%且转化正常 | 潜力词 | 加大出价5-10% |</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "6.4.3 第5-8周：优化放量期",
+          "brief": "",
+          "core": "<p><strong>目标</strong>：系统优化ACOS，淘汰低效词<br />\n<strong>操作步骤</strong>：<br />\n1. <strong>低效词淘汰</strong>：连续7天ACOS＞100%且转化＜2的词，直接暂停<br />\n2. <strong>高效词加价</strong>：ACOS＜30%且稳定的词，出价提升5-10%<br />\n3. <strong>否定词更新</strong>：将每周搜索词报告中零转化的词加入否定列表<br />\n4. <strong>预算再分配</strong>：将暂停词释放的预算，追加到高效词上<br />\n5. <strong>扩展词组匹配</strong>：从搜索词报告中选取表现良好的长尾词，建立词组匹配组</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "6.4.4 ACOS容忍度参考",
+          "brief": "",
+          "core": "<p>新品期的ACOS容忍度应按照产品生命周期动态调整：<br />\n- <strong>上架前30天</strong>：ACOS 50-70%属正常范围<br />\n- <strong>上架31-60天</strong>：ACOS应逐步降至40-50%<br />\n- <strong>上架61-90天</strong>：ACOS目标设在30-40%<br />\n- <strong>上架90天以上</strong>：ACOS应控制在25%以内<br />\n<strong>重要原则</strong>：广告至少连续跑7天再做出判断。前3天数据是系统学习期，点击率和转化率都不稳定，不能作为优化依据。如果第4-7天数据趋势向好，前3天的差表现可以忽略。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "6.4.5 预算调整规范",
+          "brief": "",
+          "core": "<p>预算调整是广告优化中最容易犯错的地方。核心原则是：<br />\n- <strong>单次预算增幅不超过30%</strong>：MercadoAds的算法对预算突变敏感，大幅增加预算会导致系统重新学习，曝光波动<br />\n- <strong>预算降低不受限</strong>：降低预算不会触发系统重新学习<br />\n- <strong>调整频率</strong>：每周最多调整2次预算<br />\n- <strong>千万不要停广告</strong>：停掉广告再开启，相当于重新从零积累权重</p>\n<hr />",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "platform",
+      "icon": "★",
+      "title": "6.5 否定关键词管理",
+      "desc": "否定关键词是广告优化中最容易被忽视但最具性价比的操作。一个精准的否定词可以避免大量无效点击，直接降低ACOS。",
+      "topics": [
+        {
+          "title": "6.5.1 行业级否定词库",
+          "brief": "",
+          "core": "<p>以下三类词属于MercadoLibre各品类通用的否定关键词，建议在新建广告活动时直接添加：<br />\n<strong>价格敏感型否定词</strong>：<br />\n- gratis（免费）<br />\n- barato（便宜）<br />\n- mais barato（最便宜）<br />\n- promocao（促销）<br />\n- desconto（折扣）<br />\n- liquidação（清仓）<br />\n<strong>产品状态否定词</strong>：<br />\n- usado（二手的）<br />\n- seminovo（准新品）<br />\n- recondicionado（翻新）<br />\n- reparo（维修）<br />\n<strong>无关流量否定词</strong>：<br />\n- aluguel（租赁）<br />\n- pecas（配件——当你的产品不是配件时）<br />\n- como fazer（怎么做——教程类搜索）<br />\n- tutorial（教程）</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "6.5.2 否定关键词的日常维护",
+          "brief": "",
+          "core": "<p>否定关键词不是一次性设置就完事了，需要每周维护：<br />\n1. <strong>每周一导出上周搜索词报告</strong><br />\n2. <strong>筛选条件</strong>：曝光&gt;100且点击&gt;10且零转化<br />\n3. <strong>逐个判断</strong>：词是否与产品无关 → 加入否定关键词<br />\n4. <strong>特别注意</strong>：不要否定点击少但零转化的词（样本不足，可能只是运气差）<br />\n5. <strong>分组否定</strong>：广告组级别的否定词更精准，系列级否定词用来过滤大方向无关流量</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "6.5.3 巴西错拼关键词管理",
+          "brief": "",
+          "core": "<p>巴西用户的高拼写错误率意味着否定词管理也需要考虑错拼。这部分工作虽然繁琐，但ROI极高。<br />\n<strong>操作流程</strong>：<br />\n1. <strong>建立错拼否定词库</strong>：每周从搜索词报告中摘录高频错拼无关词<br />\n2. <strong>添加错拼变体</strong>：例如否定\"gratis\"时，一并添加\"gratiz\"\"gratix\"<br />\n3. <strong>自动广告和广泛匹配中必须加</strong>——这两类匹配方式最容易触发错拼流量<br />\n4. <strong>精准匹配不需要加</strong>——精准匹配要求词完全匹配，自动过滤错拼<br />\n<strong>错拼否定词维护表示例</strong>：<br />\n| 原词 | 错拼变体 | 添加位置 |<br />\n|------|---------|---------|<br />\n| gratis | gratiz, grátis, gratiis, grati | 系列级否定 |<br />\n| usado | uzado, uxado, usad | 广告组级否定 |<br />\n| barato | baratoo, barrato, barat | 系列级否定 |</p>\n<hr />",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "tax",
+      "icon": "◆",
+      "title": "本章小结",
+      "desc": "| 章节 | 核心要点 |",
+      "topics": []
+    },
+    {
+      "cls": "product",
+      "icon": "♣",
+      "title": "第7章：ACOS控制与广告优化",
+      "desc": "---",
+      "topics": []
+    },
+    {
+      "cls": "extra",
+      "icon": "●",
+      "title": "7.1 三大核心指标解读",
+      "desc": "广告优化的前提是对核心指标有准确理解。MercadoLibre 广告后台提供的关键指标中，有三个指标必须每日关注：CTR、CVR 和 ACOS。这三个指标不是孤立的，它们共同揭示广告的健康状况和问题所",
+      "topics": [
+        {
+          "title": "7.1.1 CTR（点击率）",
+          "brief": "",
+          "core": "<p>CTR = 点击量 ÷ 曝光量 × 100%<br />\nCTR反映的是广告对买家的吸引力。当你的广告展示在搜索结果页时，买家是否愿意点击它，取决于三个因素：<br />\n1. <strong>主图质量</strong>——是否清晰、是否与搜索结果页其他产品形成视觉差异<br />\n2. <strong>标题相关度</strong>——是否包含了买家正在搜索的关键词<br />\n3. <strong>价格竞争力</strong>——在搜索结果页中是否具有价格优势<br />\n4. <strong>评价数量和评分</strong>——是否有足够的评价支撑转化信心<br />\n<strong>行业基准参考</strong>：<br />\n- MercadoLibre 全品类平均CTR：0.8-1.2%<br />\n- 巴西站电子品类：0.5-0.8%<br />\n- 巴西站家居品类：1.0-1.5%<br />\n- 墨西哥站整体：1.0-1.8%<br />\n当CTR低于0.5%时，优先优化主图和标题，而不是调整出价。曝光已经获得，问题是买家看到了但不点击，这是创意层面的问题，不是出价问题。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "7.1.2 CVR（转化率）",
+          "brief": "",
+          "core": "<p>CVR = 订单量 ÷ 点击量 × 100%<br />\nCVR反映的是产品详情页的说服力。买家点击了广告进入产品详情页，是否最终下单，取决于：<br />\n1. <strong>详情页质量</strong>——图片、描述、规格是否完整专业<br />\n2. <strong>评价数量与质量</strong>——是否有足够的好评消除购买顾虑<br />\n3. <strong>价格与运费</strong>——是否在合理范围内，是否有满减或免运<br />\n4. <strong>竞品对比</strong>——买进是否在对比后选择了其他卖家<br />\n<strong>行业基准参考</strong>：<br />\n- MercadoLibre 全品类平均CVR：4-7%<br />\n- 巴西站电子品类：3-5%<br />\n- 巴西站快速消费品：8-12%<br />\n- 墨西哥站整体：5-8%<br />\n当CVR低于3%时，不要急于否定关键词，先检查详情页是否存在问题。CVR问题通常是产品层面的问题，不是广告层面的问题。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "7.1.3 ACOS（广告销售比）",
+          "brief": "",
+          "core": "<p>ACOS = 广告花费 ÷ 广告销售额 × 100%<br />\nACOS是衡量广告效率的核心指标。它直接告诉你：每赚1块钱的销售额，花了多少广告费。<br />\n<strong>实例</strong>：ACOS为40%意味着每产生R$100的广告销售额，广告花费为R$40，产品售价中剩余R$60需要覆盖产品成本、物流、平台佣金等费用。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "7.1.4 三大指标联动诊断",
+          "brief": "",
+          "core": "<p>只看单一指标无法判断问题所在。将三个指标放在一起看，才能准确定位：<br />\n| 现象 | 曝光量 | CTR | CVR | ACOS | 根因 | 解决方案 |<br />\n|------|--------|-----|-----|------|------|---------|<br />\n| <strong>场景A</strong> | 高 | 低 | 正常 | 偏高 | 主图/标题不够吸引 | 优化主图和标题 |<br />\n| <strong>场景B</strong> | 正常 | 正常 | 低 | 高 | 详情页/评价不足 | 优化详情页、催评 |<br />\n| <strong>场景C</strong> | 高 | 高 | 低 | 极高 | 关键词不精准 | 缩小匹配范围、加否定词 |<br />\n| <strong>场景D</strong> | 正常 | 高 | 高 | 低 | 表现健康 | 维持或适度加预算 |<br />\n| <strong>场景E</strong> | 正常 | 低 | 低 | 高 | 整体竞争力不足 | 检查价格、评价、Listing |<br />\n<strong>诊断逻辑</strong>：从上往下看。先看曝光是否充足，再看点击是否正常，再看转化是否达标，逐层排查。</p>\n<hr />",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "platform",
+      "icon": "★",
+      "title": "7.2 盈亏平衡点计算",
+      "desc": "广告不是要消灭ACOS，而是要让ACOS在可接受的范围内。理解盈亏平衡点，才能判断当前ACOS是否安全。",
+      "topics": [
+        {
+          "title": "7.2.1 ACOS盈亏平衡点公式",
+          "brief": "其中毛利率的计算方式：",
+          "core": "<p>ACOS盈亏平衡点的计算公式：</p><p>其中毛利率的计算方式：</p><p><strong>举例说明</strong>：<br />\n一款蓝牙耳机在巴西站的售价为R$150，各项成本如下：<br />\n- 产品成本：R$35（含头程运费）<br />\n- 物流成本（含尾程）：R$25<br />\n- 平台佣金（17% + 每单固定费）：R$28<br />\n- 退款退货损耗：5%<br />\n毛利率 = (150 - 35 - 25 - 28) ÷ 150 × 100% = 41.3%<br />\nACOS盈亏平衡点 = 41.3% - 5% = 36.3%<br />\n这意味着，这款耳机的广告ACOS必须控制在36.3%以内，广告才能做到不亏钱。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "7.2.2 不同阶段的ACOS目标",
+          "brief": "",
+          "core": "<p>实际投放中，并非所有阶段都需要ACOS低于盈亏平衡点。广告有战术性亏损的阶段：<br />\n| 产品阶段 | 可接受ACOS | 核心目标 | 盈利要求 |<br />\n|---------|-----------|---------|---------|<br />\n| <strong>新品期（0-30天）</strong> | 60-80% | 积累排名和评价 | 不要求盈利 |<br />\n| <strong>成长期（31-90天）</strong> | 35-45% | 扩大规模抢占排名 | 接近平衡 |<br />\n| <strong>成熟期（91天+）</strong> | ≤25% | 利润最大化 | 必须盈利 |</p><ul>\n<li>如果产品毛利率较高（＞50%），ACOS容忍度可以更高，因为广告亏损部分可以通过自然转化弥补</li>\n<li>如果产品毛利率较低（＜30%），ACOS必须严格控制，否则广告越大亏越多</li>\n<li>新品期允许亏损是战略性投入，但必须有明确的时间节点——超过90天仍然无法盈利的产品，应考虑淘汰</li>\n</ul>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "7.2.3 ACOS盈亏计算案例",
+          "brief": "",
+          "core": "<p>以下是一个蓝牙耳机卖家在巴西站的实际运营数据模拟：<br />\n| 阶段 | 广告花费 | 广告销售额 | ACOS | 毛利率 | 广告净利 | 累计盈亏 |<br />\n|------|---------|-----------|------|--------|---------|---------|<br />\n| 第1周（新品） | R$350 | R$500 | 70% | 41% | -R$145 | -R$145 |<br />\n| 第4周（数据积累） | R$420 | R$1,050 | 40% | 41% | R$4.5 | -R$330 |<br />\n| 第8周（优化后） | R$600 | R$2,000 | 30% | 41% | R$220 | R$40 |<br />\n| 第12周（成熟期） | R$500 | R$2,500 | 20% | 41% | R$525 | R$1,420 |<br />\n从数据可以看出：前4周是战略性亏损期，累计亏损R$330；第8周开始盈利；到第12周累计盈利R$1,420。如果没有前期的亏损投入，后面的盈利不可能实现。这就是广告投放的正常节奏——先投入，后收割。</p>\n<hr />",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "tax",
+      "icon": "◆",
+      "title": "7.3 出价策略与分时调价",
+      "desc": "出价是广告投放中最直接的控制杠杆。但出价不是越高越好，也不是越低越好，而是要在\"够用\"和\"不浪费\"之间找到平衡点。",
+      "topics": [
+        {
+          "title": "7.3.1 巴西站买家购物时间段",
+          "brief": "",
+          "core": "<p>出价策略必须考虑买家的购物习惯。基于 MercadoLibre 巴西站的大数据统计：<br />\n<strong>工作日购物高峰</strong>：<br />\n- 午休时段：12:00-14:00（在手机端浏览购物）<br />\n- 晚间高峰：20:00-23:00（日间工作，夜间消费）<br />\n<strong>周末购物特点</strong>：<br />\n- 周五晚上至周日全天活跃度明显提升<br />\n- 巴西发薪日（每月第5个工作日和第5个工作日前后）购物需求骤增<br />\n- 周末CPC通常比工作日低10-15%，但CVR更高<br />\n<strong>分时出价调整策略</strong>：<br />\n| 时间段 | 出价调整 | 原因 |<br />\n|-------|---------|------|<br />\n| 00:00-07:00 | -30% | 用户活跃度极低，降低花费 |<br />\n| 07:00-12:00 | 基础出价 | 通勤和上午浏览，维持曝光 |<br />\n| 12:00-14:00 | +15% | 午休购物高峰，提高竞争力 |<br />\n| 14:00-20:00 | 基础出价 | 下午工作时间，正常维持 |<br />\n| 20:00-23:00 | +20% | 晚间购物高峰，重点抢夺流量 |<br />\n| 23:00-24:00 | -15% | 深夜时段，逐步降低 |</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "7.3.2 分时调价的实际效果",
+          "brief": "",
+          "core": "<p>根据多个品类卖家的实战数据，执行分时调价后：<br />\n- <strong>ACOS降低约15%</strong>——将预算集中在高转化时段，减少低效时段的浪费<br />\n- <strong>广告ROI提升20-30%</strong>——同样的预算撬动更多有效转化<br />\n- <strong>凌晨曝光降低50%以上</strong>——但凌晨的订单占比本来就很低，影响可控<br />\n<strong>执行方式</strong>：<br />\n- 使用 MercadoAds 的分时出价功能（可在系列层级设置）<br />\n- 在广告管理后台选择\"Hora do dia\"（时段）维度设置<br />\n- 每周检查时段报告，根据实际数据微调加价比例</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "7.3.3 出价调整的基本原则",
+          "brief": "",
+          "core": "<p><strong>不要频繁开关广告</strong><br />\n每开关一次广告，MercadoAds的系统就需要重新学习你的产品曝光模式。重新学习期通常需要2-3天，期间曝光和转化都会出现明显波动。频繁开关广告会导致：<br />\n- 广告权重无法累积<br />\n- 数据断档，难以判断真实效果<br />\n- 浪费更多预算在重新学习期<br />\n<strong>正确做法</strong>：如果觉得预算消耗太快，优先降低出价而不是关广告。降低出价不会触发重新学习，而关闭广告会。<br />\n<strong>7天为一个优化周期</strong><br />\n- 不要每天调整出价——一天的数据波动太大，不具备统计意义<br />\n- 每周固定一天（建议周一）做系统性分析<br />\n- 每次出价调整幅度控制在10-20%<br />\n- 调整后至少观察7天再做下一次调整</p>\n<hr />",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "product",
+      "icon": "♣",
+      "title": "7.4 广告质量分与权重积累",
+      "desc": "很多新手卖家以为广告排名完全取决于出价，谁出价高谁排前面。实际上，MercadoAds的广告排名算法远比这复杂。",
+      "topics": [
+        {
+          "title": "7.4.1 排名公式",
+          "brief": "这意味着：出价高的产品不一定排名靠前，如果质量分低，出价高也可能排在不理想的位置。",
+          "core": "<p>MercadoAds的广告排名由两个因素共同决定：</p><p>这意味着：出价高的产品不一定排名靠前，如果质量分低，出价高也可能排在不理想的位置。<br />\n<strong>实例</strong>：<br />\n| 卖家 | 出价 | 质量分 | 排名得分 | 实际排名 |<br />\n|------|------|--------|---------|---------|<br />\n| 卖家A | R$5.0 | 3 | 15 | 第2位 |<br />\n| 卖家B | R$3.0 | 8 | 24 | 第1位 |<br />\n| 卖家C | R$4.0 | 2 | 8 | 未展示 |<br />\n卖家B出价虽低，但凭借高质量分获得第1位；卖家A出价高但质量分一般，排在第2位；卖家C出价不低但质量分极低，直接没有展示机会。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "7.4.2 质量分的核心指标",
+          "brief": "",
+          "core": "<p>MercadoAds的质量分并非公开透明的数据，但根据大量投放经验可以总结出其核心影响因子：<br />\n<strong>最重要的单一指标：CTR（点击率）</strong><br />\nCTR是质量分的最强影响因素，原因很简单——MercadoAds的收益直接与点击量挂钩。如果你的广告点击率高，说明买家的需求与你的产品高度匹配，系统会给予更高的质量分。<br />\n<strong>质量分的影响因素排名</strong>：<br />\n1. <strong>CTR</strong>——权重最高，直接影响质量分<br />\n2. <strong>CVR</strong>——转化率反映产品满足需求的程度<br />\n3. <strong>评价数量与评分</strong>——4.5分以上且评价≥50的产品质量分更高<br />\n4. <strong>库存充足率</strong>——经常断货的产品质量分会被降低<br />\n5. <strong>退换货率</strong>——退换货率高的产品会被降低质量分</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "7.4.3 质量分的良性循环",
+          "brief": "",
+          "core": "<p>高质量分带来的连锁反应：</p>\n<pre class=\"codehilite\"><code>高CTR → 高质量分 → 相同出价排更前 → 更多曝光 → 更低CPC → ACOS下降 → 更多预算 → 更多转化 → 更高CTR\n</code></pre>\n\n<p><strong>具体表现</strong>：<br />\n- <strong>同样出价排更前</strong>：质量分高意味着你的广告可以以更低的出价获得更好的位置<br />\n- <strong>CPC更低</strong>：MercadoAds对质量分高的产品给予CPC折扣，实际点击费用可能低于出价<br />\n- <strong>系统优待</strong>：曝光更加稳定，不容易出现大幅波动</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "7.4.4 权重积累的时间周期",
+          "brief": "",
+          "core": "<p>广告权重不是一夜之间建立的，而是日复一日的积累过程：<br />\n- <strong>第1-7天</strong>：系统学习期，曝光不稳定，CTR和CVR可能波动<br />\n- <strong>第8-14天</strong>：系统基本完成学习，数据开始稳定，权重初步建立<br />\n- <strong>第15-30天</strong>：权重持续积累，CPC开始下降，广告效率提升<br />\n- <strong>30天以上</strong>：稳定期，权重积累达到高水平，进入\"稳赚\"模式</p>",
+          "warn": "",
+          "ext": "<h2>不要因为前期ACOS高就放弃一个产品。很多产品在前7天ACOS可能高达80-100%，但持续优化30天后ACOS降至25-35%。关键在于能不能坚持足够长的优化周期。</h2>",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "extra",
+      "icon": "●",
+      "title": "7.5 广告优化三周期",
+      "desc": "广告优化不是一次性工作，而是需要按照不同的时间维度持续进行的工作流。高效的管理体系应该包括日、周、月三个优化周期。",
+      "topics": [
+        {
+          "title": "7.5.1 每日优化",
+          "brief": "",
+          "core": "<p>每日优化的重点不是大规模调整，而是监控异常。<br />\n<strong>每日检查清单</strong>：<br />\n1. <strong>查看核心指标</strong>：花费、ACOS、订单量、CTR、CVR<br />\n2. <strong>检测异常波动</strong>：<br />\n   - 花费正常但订单突然降为0 → 检查是否被跟卖或竞品上架了新品<br />\n   - ACOS突然翻倍 → 检查是否有人恶意点击或出价被自动调高<br />\n   - 曝光突然归零 → 检查库存是否不足、产品是否被下架<br />\n3. <strong>检查库存</strong>：确保广告产品库存充足<br />\n4. <strong>检查评价</strong>：是否有新的差评需要处理</p>",
+          "warn": "<p>每日优化只处理异常情况，不做常规调整。常规调整留到每周优化时再做。</p>",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "7.5.2 每周优化",
+          "brief": "",
+          "core": "<p>每周优化是广告管理的核心周期，需要系统性地分析数据并做出决策。<br />\n<strong>每周一执行</strong>：<br />\n1. <strong>导出上周搜索词报告</strong><br />\n2. <strong>关键词分析</strong>：<br />\n   - 高点击零转化词 → 加入否定关键词<br />\n   - 持续ACOS&gt;100%且转化&lt;2的词 → 暂停<br />\n   - ACOS&lt;30%且稳定 → 出价提升5-10%<br />\n3. <strong>否定关键词更新</strong>：将新发现的无关词加入否定词库<br />\n4. <strong>预算检查</strong>：是否有多余预算可以重新分配到表现好的产品上<br />\n5. <strong>广告组重组</strong>：如果某组数据表现差异大，考虑拆分为更细的组<br />\n<strong>每周数据看板</strong>（供参考）：<br />\n| 指标 | 上周数据 | 本周数据 | 环比变化 | 操作 |<br />\n|------|---------|---------|---------|------|<br />\n| 总花费 | R$2,100 | R$2,450 | +16.7% | 正常增长 |<br />\n| ACOS | 38.5% | 35.2% | -3.3% | 持续优化 |<br />\n| CTR | 1.1% | 1.3% | +0.2% | 良好 |<br />\n| CVR | 5.2% | 5.8% | +0.6% | 良好 |</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "7.5.3 每月优化",
+          "brief": "",
+          "core": "<p>每月优化从更高维度审视广告整体表现，调整战略方向。<br />\n<strong>每月初执行</strong>：<br />\n1. <strong>回顾整月表现</strong>：<br />\n   - 总花费 vs 预算<br />\n   - ACOS趋势<br />\n   - 广告销售额占比（广告单量 / 总单量）<br />\n2. <strong>预算再分配</strong>：根据上个月各系列表现调整本月预算<br />\n3. <strong>策略调整</strong>：<br />\n   - 某新品经过两个月培养仍未达标 → 考虑淘汰<br />\n   - 某产品ACOS持续降低且转化稳定 → 加大预算放量<br />\n4. <strong>竞品分析</strong>：关注竞品价格变动和新品上架情况</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "7.5.4 721预算分配法则",
+          "brief": "",
+          "core": "<p>预算分配到不同产品线时，采用721法则可以实现效率和风险的平衡：<br />\n<strong>70%预算：爆款产品</strong><br />\n- 特征：月销100+，ACOS&lt;25%<br />\n- 目标：巩固排名，维持优势<br />\n- 策略：精准匹配为主，出价可以略高于竞品<br />\n<strong>20%预算：潜力产品</strong><br />\n- 特征：月销30-100，ACOS在25-50%<br />\n- 目标：逐步放量，冲高排名<br />\n- 策略：精准+词组匹配，逐步扩大流量<br />\n<strong>10%预算：新品测试</strong><br />\n- 特征：月销&lt;30，数据积累阶段<br />\n- 目标：验证产品是否有爆款潜质<br />\n- 策略：自动广告为主，控制预算上限</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "7.5.5 周末预算策略",
+          "brief": "",
+          "core": "<p>巴西消费者的购物习惯与工作日有明显差异，广告预算也需要相应调整：<br />\n<strong>周末预算调整规则</strong>：<br />\n- <strong>周五至周日</strong>：预算上调50%（巴西人在周五发工资后购物意愿最强）<br />\n- <strong>周一至周四</strong>：维持正常预算<br />\n- <strong>节假日</strong>：参考周末策略，巴西节假日当天预算上调50%<br />\n<strong>数据支撑</strong>：根据实际投放统计，巴西站周末的广告CVR通常比工作日高出20-30%，CPC反而低10-15%。这意味着周末投放的效率显著优于工作日。<br />\n<strong>特别提醒</strong>：如果周末预算耗尽导致广告停投，会损失全天的高效率流量。务必确保周末预算充足，宁可平日少花，不能周末断流。</p>\n<hr />",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "platform",
+      "icon": "★",
+      "title": "本章小结",
+      "desc": "| 章节 | 核心要点 |",
+      "topics": []
+    }
+  ],
+  "takeaways": [],
+  "homework": [],
+  "stats": [
+    {
+      "num": "57",
+      "label": "知识专题",
+      "color": 1
+    },
+    {
+      "num": "21",
+      "label": "核心板块",
+      "color": 4
+    }
+  ]
+};
+render(DATA);
+</script>
+</body>
+</html>

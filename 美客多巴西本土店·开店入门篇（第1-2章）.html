@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>美客多巴西本土店·课程培训页（改进版）</title>
+<style>
+/* 修复Google Fonts CDN链接问题 - 使用系统字体作为fallback */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+/* 注意：Google Fonts在中国可能被屏蔽，建议使用本地字体或镜像 */
+/* 备选方案：使用系统字体 */
+/* font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; */
+
+:root {
+  --bg:#f5f0e8;--bg2:#ebe4d8;--bg3:#fff9f0;--card:#fffcf5;
+  --text:#2a1f14;--text2:#5a4a38;--text3:#8a7a68;
+  --accent1:#c04b2d;--accent2:#d4842a;--accent3:#2a7d5f;--accent4:#2a5f7d;--accent5:#7d2a5f;
+  --border:#d4c8b8;--shadow:rgba(42,31,20,0.08);--shadow2:rgba(42,31,20,0.15);
+  --tag-bg:rgba(192,75,45,0.08);--tag-border:rgba(192,75,45,0.2);
+  --warn-bg:rgba(212,132,42,0.08);--warn-border:rgba(212,132,42,0.25);
+  --ext-bg:rgba(42,125,95,0.06);--ext-border:rgba(42,125,95,0.2);
+  --radius:10px;--radius-sm:6px;--transition:0.3s cubic-bezier(0.4,0,0.2,1);
+}
+[data-theme="dark"]{
+  --bg:#1a1612;--bg2:#241e18;--bg3:#2a2420;--card:#2e2820;
+  --text:#e8dfd4;--text2:#b8a898;--text3:#887868;
+  --border:#3e3428;--shadow:rgba(0,0,0,0.2);--shadow2:rgba(0,0,0,0.35);
+  --tag-bg:rgba(192,75,45,0.15);--tag-border:rgba(192,75,45,0.35);
+  --warn-bg:rgba(212,132,42,0.12);--warn-border:rgba(212,132,42,0.3);
+  --ext-bg:rgba(42,125,95,0.1);--ext-border:rgba(42,125,95,0.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;background:var(--bg);color:var(--text);line-height:1.7;min-height:100vh;transition:background var(--transition),color var(--transition)}
+.hero{background:linear-gradient(135deg,var(--accent1) 0%,var(--accent2) 50%,var(--accent3) 100%);padding:48px 24px 56px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero h1{font-family:'Noto Serif SC',serif;font-size:clamp(1.6rem,4vw,2.6rem);color:#fff;font-weight:900;letter-spacing:0.04em;position:relative;text-shadow:0 2px 12px rgba(0,0,0,0.2)}
+.hero .sub{color:rgba(255,255,255,0.85);font-size:0.95rem;margin-top:10px;position:relative;font-weight:300}
+.toolbar{position:sticky;top:0;z-index:100;background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;backdrop-filter:blur(12px);transition:background var(--transition)}
+.search-box{flex:1;min-width:180px;padding:8px 14px;border:1px solid var(--border);border-radius:20px;background:var(--card);color:var(--text);font-size:0.9rem;outline:none;transition:border var(--transition),box-shadow var(--transition);font-family:inherit}
+.search-box:focus{border-color:var(--accent1);box-shadow:0 0 0 3px var(--tag-bg)}
+.search-box::placeholder{color:var(--text3)}
+.tb-btn{padding:7px 16px;border:1px solid var(--border);border-radius:20px;background:var(--card);color:var(--text2);cursor:pointer;font-size:0.82rem;font-family:inherit;transition:all var(--transition);white-space:nowrap}
+.tb-btn:hover{border-color:var(--accent1);color:var(--accent1)}
+.main{max-width:960px;margin:0 auto;padding:32px 16px 80px}
+.section{margin-bottom:28px;border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 12px var(--shadow);transition:box-shadow var(--transition)}
+.section:hover{box-shadow:0 4px 20px var(--shadow2)}
+.section-head{padding:18px 22px;cursor:pointer;display:flex;align-items:center;gap:14px;user-select:none;transition:background var(--transition)}
+.section-head .ico{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#fff;flex-shrink:0;font-weight:700}
+.section-head .info{flex:1}
+.section-head .info h2{font-family:'Noto Serif SC',serif;font-size:1.15rem;font-weight:700;line-height:1.4}
+.section-head .info .desc{font-size:0.82rem;color:var(--text3);margin-top:2px}
+.section-head .arrow{font-size:1.1rem;color:var(--text3);transition:transform var(--transition);flex-shrink:0}
+.section.open .section-head .arrow{transform:rotate(90deg)}
+.section-body{max-height:0;overflow:hidden;transition:max-height 0.5s cubic-bezier(0.4,0,0.2,1)}
+.section.open .section-body{max-height:50000px}
+.section-body-inner{padding:0 22px 22px}
+.topic{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;overflow:hidden;transition:border-color var(--transition),box-shadow var(--transition)}
+.topic:hover{border-color:var(--accent2)}
+.topic:last-child{margin-bottom:0}
+.topic-head{padding:14px 18px;cursor:pointer;display:flex;align-items:center;gap:12px;user-select:none}
+.topic-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:#fff;flex-shrink:0}
+.topic-head .title{flex:1;font-weight:600;font-size:0.95rem}
+.topic-head .brief{font-size:0.78rem;color:var(--text3);max-width:40%;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.topic-head .tarrow{color:var(--text3);transition:transform var(--transition);flex-shrink:0;font-size:0.85rem}
+.topic.open .topic-head .tarrow{transform:rotate(90deg)}
+.topic-body{max-height:0;overflow:hidden;transition:max-height 0.45s cubic-bezier(0.4,0,0.2,1)}
+.topic.open .topic-body{max-height:30000px}
+.topic-body-inner{padding:0 18px 16px}
+.kb{margin-bottom:14px;border-radius:var(--radius-sm);padding:14px 16px;font-size:0.88rem;line-height:1.8}
+.kb:last-child{margin-bottom:0}
+.kb-label{font-weight:700;font-size:0.78rem;letter-spacing:0.06em;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.kb-core{background:var(--tag-bg);border-left:3px solid var(--accent1)}
+.kb-core .kb-label{color:var(--accent1)}
+.kb-warn{background:var(--warn-bg);border-left:3px solid var(--accent2)}
+.kb-warn .kb-label{color:var(--accent2)}
+.kb-ext{background:var(--ext-bg);border-left:3px solid var(--accent3)}
+.kb-ext .kb-label{color:var(--accent3)}
+.kb ul{padding-left:1.2em}
+.kb li{margin-bottom:2px}
+.kb strong{font-weight:600}
+.kb .hl{color:var(--accent1);font-weight:600}
+.kb .hl2{color:var(--accent3);font-weight:600}
+.takeaways{background:linear-gradient(135deg,var(--accent1),var(--accent2));border-radius:var(--radius);padding:28px 24px;margin-bottom:28px;color:#fff}
+.takeaways h2{font-family:'Noto Serif SC',serif;font-size:1.2rem;margin-bottom:16px;text-align:center}
+.takeaways ol{padding-left:1.4em;font-size:0.92rem;line-height:2}
+.takeaways li{opacity:0.95}
+.homework{background:var(--card);border:2px dashed var(--accent3);border-radius:var(--radius);padding:24px;margin-bottom:28px}
+.homework h2{font-family:'Noto Serif SC',serif;font-size:1.1rem;color:var(--accent3);margin-bottom:14px}
+.hw-item{background:var(--ext-bg);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:10px;font-size:0.88rem}
+.hw-item:last-child{margin-bottom:0}
+.hw-item strong{color:var(--accent3)}
+.stats{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+.stat-card{flex:1;min-width:140px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center}
+.stat-card .num{font-family:'Noto Serif SC',serif;font-size:1.8rem;font-weight:900;line-height:1.2}
+.stat-card .label{font-size:0.78rem;color:var(--text3);margin-top:4px}
+.sec-platform .section-head{background:linear-gradient(135deg,rgba(192,75,45,0.08),rgba(192,75,45,0.03))}
+.sec-platform .section-head .ico{background:var(--accent1)}
+.sec-platform .topic-num{background:var(--accent1)}
+.sec-tax .section-head{background:linear-gradient(135deg,rgba(42,95,125,0.08),rgba(42,95,125,0.03))}
+.sec-tax .section-head .ico{background:var(--accent4)}
+.sec-tax .topic-num{background:var(--accent4)}
+.sec-product .section-head{background:linear-gradient(135deg,rgba(42,125,95,0.08),rgba(42,125,95,0.03))}
+.sec-product .section-head .ico{background:var(--accent3)}
+.sec-product .topic-num{background:var(--accent3)}
+.sec-extra .section-head{background:linear-gradient(135deg,rgba(125,42,95,0.08),rgba(125,42,95,0.03))}
+.sec-extra .section-head .ico{background:var(--accent5)}
+.sec-extra .topic-num{background:var(--accent5)}
+
+/* 修复打印样式问题 - 同时展开section和topic */
+@media print{
+  .toolbar{display:none}
+  .section-body,.topic-body{max-height:none!important}
+  .section,.topic{break-inside:avoid}
+}
+
+/* 响应式设计 */
+@media(max-width:640px){
+  .hero{padding:32px 16px 40px}
+  .topic-head .brief{display:none}
+  .stats{gap:8px}
+  .stat-card{min-width:100px;padding:12px}
+  .stat-card .num{font-size:1.4rem}
+}
+
+/* 搜索高亮样式 */
+.search-highlight{background-color:rgba(192,75,45,0.3);border-radius:2px;padding:0 2px}
+
+/* 键盘快捷键提示 */
+.shortcut-hint{font-size:0.7rem;color:var(--text3);margin-left:4px;opacity:0.7}
+</style>
+</head>
+<body>
+<div class="hero">
+  <h1 id="heroTitle"></h1>
+  <div class="sub" id="heroSub"></div>
+</div>
+<div class="toolbar">
+  <input class="search-box" type="text" placeholder="搜索关键词... (Ctrl+F)" id="searchInput">
+  <button class="tb-btn" id="expandAll">全部展开</button>
+  <button class="tb-btn" id="collapseAll">全部收起</button>
+  <button class="tb-btn" id="themeToggle">深色模式</button>
+</div>
+<div class="main" id="mainContent">
+  <div class="stats" id="statsContainer"></div>
+  <div id="sectionsContainer"></div>
+  <div id="takeawaysContainer"></div>
+  <div id="homeworkContainer"></div>
+</div>
+
+<script>
+// 修复classList拼写错误问题（原版有bug）
+function toggleSection(el) { 
+  const section = el.closest('.section');
+  if (section) {
+    section.classList.toggle('open');
+  }
+}
+
+function toggleTopic(el) { 
+  const topic = el.closest('.topic');
+  if (topic) {
+    topic.classList.toggle('open');
+  }
+}
+
+// 修复搜索功能问题 - 搜索时先展开所有折叠块
+document.getElementById('searchInput').addEventListener('input', function() {
+  const q = this.value.trim().toLowerCase();
+  
+  // 如果搜索词不为空，先展开所有折叠块
+  if (q) {
+    document.querySelectorAll('.section').forEach(s => s.classList.add('open'));
+    document.querySelectorAll('.topic').forEach(t => t.classList.add('open'));
+  }
+  
+  document.querySelectorAll('.section').forEach(sec => {
+    let secMatch = false;
+    sec.querySelectorAll('.topic').forEach(top => {
+      const match = !q || top.textContent.toLowerCase().includes(q);
+      top.style.display = match ? '' : 'none';
+      if (match) { secMatch = true; }
+    });
+    sec.style.display = secMatch ? '' : 'none';
+  });
+  
+  // 添加搜索高亮
+  if (q) {
+    document.querySelectorAll('.topic').forEach(top => {
+      if (top.style.display !== 'none') {
+        highlightText(top, q);
+      }
+    });
+  } else {
+    // 清除高亮
+    document.querySelectorAll('.search-highlight').forEach(el => {
+      el.outerHTML = el.textContent;
+    });
+  }
+});
+
+// 搜索高亮函数
+function highlightText(element, keyword) {
+  // 清除之前的高亮
+  element.querySelectorAll('.search-highlight').forEach(el => {
+    el.outerHTML = el.textContent;
+  });
+  
+  // 添加新高亮
+  const regex = new RegExp(`(${keyword})`, 'gi');
+  const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+  const textNodes = [];
+  let node;
+  while (node = walker.nextNode()) {
+    textNodes.push(node);
+  }
+  
+  textNodes.forEach(textNode => {
+    if (textNode.nodeValue.toLowerCase().includes(keyword.toLowerCase())) {
+      const span = document.createElement('span');
+      span.className = 'search-highlight';
+      span.textContent = textNode.nodeValue;
+      textNodes.parentNode.replaceChild(span, textNode);
+    }
+  });
+}
+
+// 增加键盘快捷键
+document.addEventListener('keydown', function(e) {
+  // Ctrl+F 聚焦搜索框
+  if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+    e.preventDefault();
+    document.getElementById('searchInput').focus();
+  }
+  
+  // Esc 收起所有
+  if (e.key === 'Escape') {
+    document.getElementById('collapseAll').click();
+    document.getElementById('searchInput').blur();
+  }
+});
+
+// 主题切换
+let dark = false;
+document.getElementById('themeToggle').onclick = function() {
+  dark = !dark;
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : '');
+  this.textContent = dark ? '浅色模式' : '深色模式';
+  
+  // 保存主题偏好到localStorage
+  localStorage.setItem('theme', dark ? 'dark' : 'light');
+};
+
+// 页面加载时恢复主题偏好
+window.addEventListener('DOMContentLoaded', function() {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    dark = true;
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('themeToggle').textContent = '浅色模式';
+  }
+});
+
+// 全部展开
+document.getElementById('expandAll').onclick = () => {
+  document.querySelectorAll('.section').forEach(s => s.classList.add('open'));
+  document.querySelectorAll('.topic').forEach(t => t.classList.add('open'));
+};
+
+// 全部收起
+document.getElementById('collapseAll').onclick = () => {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('open'));
+  document.querySelectorAll('.topic').forEach(t => t.classList.remove('open'));
+};
+
+// 渲染函数
+function render(data) {
+  document.title = data.title;
+  document.getElementById('heroTitle').textContent = data.title;
+  document.getElementById('heroSub').textContent = data.subtitle || '';
+  
+  // Stats
+  const sc = document.getElementById('statsContainer');
+  if (data.stats && data.stats.length) {
+    sc.innerHTML = data.stats.map(s =>
+      `<div class="stat-card"><div class="num" style="color:${ACCENT_COLORS[(s.color||1)-1]}">${s.num}</div><div class="label">${s.label}</div></div>`
+    ).join('');
+  }
+  
+  // Sections
+  const c = document.getElementById('sectionsContainer');
+  c.innerHTML = data.sections.map(sec => {
+    const topics = sec.topics.map((t, ti) => {
+      let kb = '';
+      if (t.core) kb += `<div class="kb kb-core"><div class="kb-label">◆ 核心提炼</div>${t.core}</div>`;
+      if (t.warn) kb += `<div class="kb kb-warn"><div class="kb-label">⚠ 易错警示</div>${t.warn}</div>`;
+      if (t.ext)  kb += `<div class="kb kb-ext"><div class="kb-label">► 举一反三</div>${t.ext}</div>`;
+      if (t.orig) kb += `<div class="kb" style="background:var(--bg2);border-left:3px solid var(--border)"><div class="kb-label" style="color:var(--text3)">✧ 原文摘要</div>${t.orig}</div>`;
+      return `<div class="topic"><div class="topic-head" onclick="toggleTopic(this)"><div class="topic-num">${ti+1}</div><div class="title">${t.title}</div><div class="brief">${t.brief||''}</div><div class="tarrow">▶</div></div><div class="topic-body"><div class="topic-body-inner">${kb}</div></div></div>`;
+    }).join('');
+    return `<div class="section sec-${sec.cls||'platform'} open"><div class="section-head" onclick="toggleSection(this)"><div class="ico">${sec.icon||'★'}</div><div class="info"><h2>${sec.title}</h2><div class="desc">${sec.desc||''}</div></div><div class="arrow">▶</div></div><div class="section-body"><div class="section-body-inner">${topics}</div></div></div>`;
+  }).join('');
+  
+  // Takeaways
+  const tk = document.getElementById('takeawaysContainer');
+  if (data.takeaways && data.takeaways.length) {
+    tk.innerHTML = `<div class="takeaways"><h2>核心要点回顾</h2><ol>${data.takeaways.map(t => `<li>${t}</li>`).join('')}</ol></div>`;
+  }
+  
+  // Homework
+  const hw = document.getElementById('homeworkContainer');
+  if (data.homework && data.homework.length) {
+    hw.innerHTML = `<div class="homework"><h2>实践作业</h2>${data.homework.map(h => `<div class="hw-item"><strong>${h.title}</strong><br>${h.content}</div>`).join('')}</div>`;
+  }
+}
+
+// 颜色数组
+const ACCENT_COLORS = ['var(--accent1)','var(--accent2)','var(--accent3)','var(--accent4)','var(--accent5)'];
+
+// ===== DATA INJECTION POINT =====
+const DATA = {
+  "title": "美客多巴西本土店·开店入门篇（第1-2章）",
+  "subtitle": "",
+  "sections": [
+    {
+      "cls": "platform",
+      "icon": "★",
+      "title": "第1章 巴西市场认知与入驻资质",
+      "desc": "",
+      "topics": []
+    },
+    {
+      "cls": "tax",
+      "icon": "◆",
+      "title": "1.1 巴西电商市场整体认知",
+      "desc": "",
+      "topics": [
+        {
+          "title": "1.1.1 市场规模与平台格局",
+          "brief": "",
+          "core": "<p><strong>为什么巴西被称为\"最难做却最不能放弃\"的市场？</strong><br />\n2024年，巴西电商市场规模已超过1850亿雷亚尔（约370亿美元），保持两位数以上的年增长率。在这个庞大且高速增长的市场中，美客多（MercadoLibre/MercadoLivre）以约25%的市场占有率稳居龙头地位——这意味着<strong>每4个巴西人网购的订单中，就有1个来自美客多平台</strong>。<br />\n美客多之所以能在巴西形成垄断级优势，核心在于其完整的生态系统闭环：<br />\n| 生态组件 | 产品名称 | 核心作用 |<br />\n|---------|---------|---------|<br />\n| 支付 | MercadoPago | 巴西最主流的线上支付/分期工具 |<br />\n| 物流 | MercadoEnvios | 覆盖巴西全境的配送网络（含Full仓） |<br />\n| 广告 | MercadoLibre Ads | 站内搜索广告与展示广告 |<br />\n| 金融 | MercadoLibre Crédito | 卖家短期周转贷款与买家分期信贷 |<br />\n这四件套让卖家几乎可以在不依赖任何第三方服务商的前提下完成\"进-销-存-收-贷\"全链路运转。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "1.1.2 巴西 vs 墨西哥：双子星市场的关键差异",
+          "brief": "",
+          "core": "<p>美客多在拉丁美洲同时运营巴西站和墨西哥站，但两个市场的区别远不止语言不同。<br />\n| 对比维度 | 巴西站 | 墨西哥站 |<br />\n|---------|-------|---------|<br />\n| 官方语言 | 葡萄牙语 | 西班牙语 |<br />\n| 标准佣金 | 约17% | 约15% |<br />\n| 消费特征 | 注重性价比，60%+订单使用信用卡分期 | 偏好一次性付款 |<br />\n| 产品认证 | 电子/食品/化妆品有严格INMETRO/ANVISA要求 | 认证要求相对宽松 |<br />\n| 合规复杂度 | 极高——葡萄牙语壁垒、数百种运费组合、NF-e税务体系 | 较高但低于巴西 |<br />\n| 消费者信任敏感度 | 极高（\"信任赤字\"市场） | 中等 |</p><p>巴西是美客多全体系中\"运营复杂度最高\"的市场。如果你能做好巴西站，其他拉美站点会觉得轻松得多。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "1.1.3 \"信任赤字\"：巴西消费者的底层心理",
+          "brief": "",
+          "core": "<p>巴西经历了长期的高通胀和经济波动，消费者在网购时极度缺乏安全感。这种<strong>\"信任赤字\"</strong>渗透在平台运行的每个环节：<br />\n- 店铺评分直接挂在卖家头像旁，买家进入商品详情前<strong>第一眼看到的就是评分</strong><br />\n- 评分低于3.8星，搜索排名明显下滑<br />\n- 低于3.5星，部分平台促销活动被限制参与<br />\n- 低于3.0星，商品可能被强制下架<br />\n<strong>信任建设黄金法则</strong>：带巴西本土元素的店铺（葡萄牙语描述、巴西节日装饰、本地化客服头像）的转化率，比纯中国卖家风格的店铺高出42%。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "1.1.4 本土店 vs 跨境店：为什么必须做本土店",
+          "brief": "",
+          "core": "<p>美客多巴西平台对本土店和跨境店给予的待遇截然不同：<br />\n| 对比维度 | 本土店（Local Store） | 跨境店（Cross-Border） |<br />\n|---------|---------------------|---------------------|<br />\n| 搜索权重 | 更高（本土流量倾斜） | 较低 |<br />\n| 运费补贴 | 享受平台补贴 | 较少或无补贴 |<br />\n| 消费者信任度 | 更高（显示巴西本地发货） | 较低 |<br />\n| 回款速度 | 快（巴西境内结算） | 慢（跨境结算） |<br />\n| 认证门槛 | 高（需NF-e、CNPJ等） | 相对低 |<br />\n| 平台要求严格程度 | 严格10倍以上 | 较宽松 |<br />\n<strong>结论</strong>：虽然本土店入驻门槛高出跨境店一个数量级，但一旦站稳，搜索权重、物流成本、消费者信任度等方面全面碾压跨境店。对于想做大规模、可持续经营的卖家来说，本土店是唯一正确的方向。</p>",
+          "warn": "",
+          "ext": "<h2>如果你之前做过跨境店，不要以为本土店只是换个主体——从税务架构到物流方案到客服逻辑，几乎是完全不同的运营体系。建议以\"从零开始\"的心态重新学习。</h2>",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "product",
+      "icon": "♣",
+      "title": "1.2 入驻三条路径",
+      "desc": "",
+      "topics": [
+        {
+          "title": "1.2.1 如何合法进入巴西市场",
+          "brief": "",
+          "core": "<p>2026年，美客多面向中国卖家开放的合规入驻路径主要有三条。选择哪条路径，取决于你的资金实力、合规要求和风险承受能力。</p>\n<h4>路径一：控股巴西公司模式（推荐长期合规）</h4>\n<p><strong>适用人群</strong>：拥有中国大陆公司，希望在巴西长期合规经营<br />\n<strong>操作方式</strong>：在中国母公司控股下注册巴西子公司，以巴西本地公司主体完成美客多KYC审核。<br />\n| 项目 | 说明 |<br />\n|------|------|<br />\n| 优势 | 账号安全性最高、可开NF-e发票、可参与所有平台活动、可申请MercadoLibre Crédito |<br />\n| 劣势 | 前期成本较高（注册费、律师费、会计费）、注册周期约1~2个月 |<br />\n| 适合场景 | 月销10000雷亚尔以上、计划长期经营 |</p>\n<h4>路径二：双主体KYC绑定模式（资金直达）</h4>\n<p><strong>适用人群</strong>：希望资金直达巴西账户，不想在巴西注册公司<br />\n<strong>操作方式</strong>：平台支持双主体绑定——中国公司作为运营主体，巴西本地合作主体作为收款和合规主体。资金从平台直接进入巴西本地账户，中间零停留。<br />\n- 当前状态：预计2026年Q1全量上线（目前处于限量内测阶段）<br />\n- 待确认的细节：保证金金额、主体切换灵活性 [待填写]</p>\n<h4>路径三：半托管模式（轻资产入局）</h4>\n<p><strong>适用人群</strong>：不想碰巴西公司注册的工厂型卖家或试水卖家<br />\n<strong>操作方式</strong>：货物发至美客多在中国的东莞合作仓，平台包办后续所有清关、尾程配送和税务申报。<br />\n| 项目 | 说明 |<br />\n|------|------|<br />\n| 优势 | 无需注册巴西公司、几乎没有前期投入 |<br />\n| 劣势 | 利润和控制权下降、无法深度运营品牌、无法享受本土店完全权重 |<br />\n| 适合场景 | 小批量试款、测试市场反应、工厂型白牌出货 |</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "1.2.2 其他合规注册方式",
+          "brief": "",
+          "core": "<p>除上述三条平台官方路径外，中国大陆卖家还可通过以下方式搭建巴西合规主体：<br />\n- <strong>当地注册实体公司</strong>：成本最高但合规性最强，适合头部卖家<br />\n- <strong>与巴西本地合伙人合作</strong>：需要极其严密的股权协议和退出条款，避免法律纠纷<br />\n- <strong>在马瑙斯自贸区（Zona Franca de Manaus）设立公司</strong>：享受税收优惠，但运营成本和管理复杂度更高</p>",
+          "warn": "",
+          "ext": "<h2>不要为了省钱选择\"灰色通道\"入驻——巴西税务系统高度数字化（NF-e体系），一旦被发现主体不合规，账号冻结资金将被长期扣押。选择路径时，先问自己三个问题：① 我的月销目标是多少？② 我准备做多久？③ 我能接受资金被冻结的最长时间是多久？</h2>",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "extra",
+      "icon": "●",
+      "title": "1.3 CPF vs CNPJ：身份选择的底层逻辑",
+      "desc": "",
+      "topics": [
+        {
+          "title": "1.3.1 两种税号的核心区别",
+          "brief": "",
+          "core": "<p>在巴西，个人和企业分别对应两套税务身份体系。选择用哪种身份入驻美客多，决定了你的运营上限。<br />\n| 对比维度 | CPF（个人税号） | CNPJ（企业税号） |<br />\n|---------|---------------|----------------|<br />\n| 类比 | 类似身份证号 | 类似营业执照 |<br />\n| 月销限额 | 有限制（较低） | 无上限 |<br />\n| 开发票 | 无法开具正规NF-e发票 | 可开具完整NF-e发票 |<br />\n| 平台佣金 | 相对较高 | 更低 |<br />\n| 审核周期 | 较快（约1~2周） | 2~4周 |<br />\n| 参与活动 | 部分平台活动受限 | 可参加全部活动 |<br />\n| 适用规模 | 小规模试水 | 中大规模经营 |</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "1.3.2 CNPJ注册硬性条件",
+          "brief": "",
+          "core": "<p>美客多平台<strong>不接受个体户或个人卖家身份</strong>——必须是拥有正式CNPJ的企业主体。注册CNPJ时有以下关键要求：<br />\n- <strong>营业执照有效期</strong>：剩余有效期须在30天以上<br />\n- <strong>经营范围</strong>：必须包含\"贸易、销售、电子商务、进出口\"等核心类目。如果注册时遗漏了相关类目，需补充登记后才能通过审核<br />\n- <strong>注册资本</strong>：建议不低于3万元人民币。如果经营高客单价类目（电子产品、奢侈品等），注册资本建议不低于50万元人民币</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "1.3.3 致命误区：用CPF做到大规模再转CNPJ",
+          "brief": "",
+          "core": "<p>有些卖家先用CPF注册，做到一定销售额后再转CNPJ，这个策略存在严重风险：<br />\n1. <strong>无法追溯开票</strong>：之前用CPF销售的订单无法补开CNPJ发票，税务局查到即为税务违规<br />\n2. <strong>税率不降反升</strong>：大规模经营下个人税率可能高于企业税率<br />\n3. <strong>账号切换成本高</strong>：美客多平台不支持直接从CPF主体更换为CNPJ主体，需要重新走KYC审核<br />\n<strong>正确做法</strong>：从计划入驻的第一天起，就确定最终要用的税务身份类型，避免后期交叉切换。</p>",
+          "warn": "",
+          "ext": "<h2>简单来说——CPF是\"试水通道\"，CNPJ是\"正式通道\"。如果你的目标月销超过[待填写]雷亚尔，直接上CNPJ，不要绕路。</h2>",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "platform",
+      "icon": "★",
+      "title": "1.4 税务架构搭建：NF-e体系",
+      "desc": "",
+      "topics": [
+        {
+          "title": "1.4.1 巴西税制的复杂程度",
+          "brief": "",
+          "core": "<p>巴西拥有全球最复杂的税制之一，分为<strong>三级税制</strong>：<br />\n- <strong>联邦税</strong>：如PIS、COFINS、IPI等<br />\n- <strong>州税（ICMS）</strong>：各州税率不同，是占比最大的流转税<br />\n- <strong>地方税（ISS）</strong>：由市一级政府征收<br />\n据统计，巴西税目超过90种。对于一个美客多本土店卖家而言，并不需要掌握所有税种的计算公式——但<strong>必须理解NF-e（电子发票）体系的核心逻辑</strong>，因为NF-e直接决定了你能不能发货、能不能收款。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "1.4.2 NF-e三步开票逻辑",
+          "brief": "",
+          "core": "<p>NF-e（Nota Fiscal Eletrônica）是巴西所有商品交易的法定凭证。<strong>没有NF-e，货物无法合法流转。</strong> 美客多Full仓发货场景下，NF-e的开票分三步完成：</p>\n<pre class=\"codehilite\"><code>第1步：入库发票（NF-e 1）\n  卖家仓 → 美客多Full仓\n  CFOP: 5.905（州内）/ 6.905（跨州）\n  含义：货权从卖家转移至平台\n第2步：销售发票（NF-e 2）\n  美客多Full仓 → 终端消费者\n  CFOP: 5.102 / 6.102 / 5.405\n  含义：最终销售出票给买家\n第3步：符号性回库发票（NF-e 3）\n  发货前货权从平台转回卖家\n  CFOP: 5.907 / 6.907\n  含义：仅在系统中流转，货物不移动\n</code></pre>",
+          "warn": "<p>NF-e 1（入库）→ NF-e 3（回库）→ NF-e 2（销售）。顺序错了或者漏掉了任何一张，整单的税务链条就不完整。</p>",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "1.4.3 24小时取消规则",
+          "brief": "",
+          "core": "<p>NF-e开出后有24小时的取消窗口期。超过24小时：<br />\n- 如果买家要求退货，不能简单取消发票<br />\n- 需要开具<strong>退货发票（NF-e de Devolução）</strong>，这是一个独立的发票类型<br />\n- 退货发票的CFOP码与销售发票不同，操作更加复杂</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "1.4.4 聘请巴西本地税务会计（Contador）",
+          "brief": "",
+          "core": "<p><strong>这不是一个可选项，而是强制的合规要求。</strong><br />\n巴西税务系统每个月需要进行SPED（公共数字记账系统）申报，涉及ICMS、PIS、COFINS等多个税种的计算和缴纳。没有本地持证会计师（Contador）的配合，几乎不可能完成合规申报。<br />\n| 服务项目 | 说明 |<br />\n|---------|------|<br />\n| 月/季度税务申报 | 按时提交SPED、DAS等申报表 |<br />\n| NF-e开票管理 | 确保三票逻辑正确、CFOP码正确 |<br />\n| 税务规划 | 合法节税，避免多缴或少缴 |<br />\n| 审计应对 | 收到税务局通知时协助处理 |</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "1.4.5 账号关联风险",
+          "brief": "",
+          "core": "<p>美客多平台对账号关联的检测机制非常严格。以下情况可能被判定为关联账号：<br />\n- 相同登录信息（邮箱、手机号）<br />\n- 相同IP地址或IP段<br />\n- 相同支付信息（MercadoPago收款账户）<br />\n- 相同设备指纹（浏览器指纹、Cookie）<br />\n- 相同公司注册地址<br />\n<strong>关联后果</strong>：一旦被判定为违规关联，所有关联账号可能被同时封禁，资金冻结。</p>",
+          "warn": "",
+          "ext": "<h2>巴西银行系统对外资极为封闭，MercadoPago往往是本土店卖家最主要的收款渠道。这意味着你的资金流高度依赖平台——因此，合规经营比任何市场都重要。省下的每一分\"税务优化\"钱，都可能变成未来的罚款。</h2>",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "tax",
+      "icon": "◆",
+      "title": "1.5 品牌资质与INPI商标规划",
+      "desc": "",
+      "topics": [
+        {
+          "title": "1.5.1 品牌对店铺的直接影响",
+          "brief": "",
+          "core": "<p>在美客多巴西站，品牌资质直接关联着几个核心运营指标：<br />\n| 品牌状态 | 搜索权重 | 佣金优惠 | 流量权益 |<br />\n|---------|---------|---------|---------|<br />\n| 自有品牌（R标） | 高 | 可享受品牌佣金优惠 | 可获得品牌专属广告位 |<br />\n| 自有品牌（TM标/受理中） | 较高 | 中等 | 部分权益受限 |<br />\n| 授权品牌 | 中等 | 视授权方政策 | 标准权益 |<br />\n| 无品牌（Generic） | 低约18% | 无优惠 | 无特殊权益 |</p><p>无品牌商品的搜索权重比有品牌商品低约18%——这意味着同样的产品，有品牌比没品牌在自然搜索中领先几乎五分之一的位置。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "1.5.2 INPI商标注册",
+          "brief": "",
+          "core": "<p>巴西的商标注册机构是<strong>INPI</strong>（Instituto Nacional da Propriedade Industrial，巴西工业产权局）。<br />\n- <strong>注册周期</strong>：一般为12~18个月<br />\n- <strong>保护范围</strong>：巴西全境<br />\n- <strong>使用语言</strong>：葡萄牙语<br />\n- <strong>可同时申请</strong>：INPI（巴西）与IMPI（墨西哥）可以同时提交申请，两个机构互相独立<br />\n<strong>实用建议</strong>：商标注册周期较长，建议在产品立项阶段就启动INPI申请，不要等到产品上架后再补。拥有受理通知书（Protocolo）即可在美客多平台进行品牌备案申请，不需要等到R标正式下发。</p>",
+          "warn": "",
+          "ext": "<h2>在巴西做品牌不仅是商标问题——巴西消费者对\"品牌感\"非常敏感。一个完整的产品包装、品牌故事页面、品牌旗舰店（Brand Store）能给转化率带来显著提升。对比之下，\"白牌+低价\"策略在巴西的ROI往往低于品牌化策略。</h2>",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "product",
+      "icon": "♣",
+      "title": "1.6 巴西消费者保护法与信任赤字",
+      "desc": "",
+      "topics": [
+        {
+          "title": "1.6.1 CDC：全球对消费者最友好的法律",
+          "brief": "",
+          "core": "<p>巴西《消费者保护法》（Código de Defesa do Consumidor，简称CDC）被誉为全球对消费者最友好的法律之一。对于美客多卖家来说，以下几点必须牢记：<br />\n- <strong>7天无理由退货（Arrependimento）</strong>：消费者在收到商品后7天内，可以无理由退货，卖家必须全额退款（含运费）<br />\n- <strong>30天质量保证期</strong>：非耐用品的质量问题，消费者有30天时间提出投诉<br />\n- <strong>举证责任倒置</strong>：在消费者投诉成立的前提下，由卖家负责证明商品没有问题（而不是消费者证明商品有问题）<br />\n- <strong>惩罚性赔偿</strong>：违反CDC的卖家可能面临三倍赔偿或行政罚款</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "1.6.2 评分体系与生存阈值",
+          "brief": "",
+          "core": "<p>美客多巴西站的评分体系直接影响店铺的可见度和生存空间。<br />\n| 评分阈值 | 后果 |<br />\n|---------|------|<br />\n| 低于3.8星 | 搜索排名明显下滑，自然流量减少 |<br />\n| 低于3.5星 | 部分平台促销活动被限制参与 |<br />\n| 低于3.0星 | 可能导致商品被强制下架、账号受限 |</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "1.6.3 搭建信任感的实操方法",
+          "brief": "",
+          "core": "<p>面对\"信任赤字\"市场，卖家需要在每一个接触点建立信任感：<br />\n1. <strong>评分管理</strong>：在最开始的10~20单，通过主动沟通、极致包装和快速发货，确保零差评开局<br />\n2. <strong>店铺身份本地化</strong>：使用葡萄牙语完整填写店铺信息、巴西风格的店铺设计、本地化客服头像<br />\n3. <strong>快速响应</strong>：买家消息在1小时内回复，远超市场平均水平的响应时间本身就是信任信号<br />\n4. <strong>清晰描述，避免过度修饰</strong>：巴西消费者对\"图文不符\"容忍度极低，一张不符合实际的图片就能导致差评<br />\n5. <strong>品牌背书</strong>：尽早完成品牌备案，INPI受理号本身就是信任证明</p>",
+          "warn": "",
+          "ext": "<h2>在巴西，<strong>差评的代价远比其他市场大</strong>。原因有两个：一是CDC法律为消费者提供了极强的维权武器；二是评分直接挂在头像旁，每个商品曝光都在展示你的评分。与其在差评后花大代价补救，不如在一开始就建立严格的质量和服务标准。</h2>",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "extra",
+      "icon": "●",
+      "title": "本章小结",
+      "desc": "| 核心知识点 | 关键结论 |",
+      "topics": []
+    },
+    {
+      "cls": "platform",
+      "icon": "★",
+      "title": "第2章 店铺注册与品牌信任感",
+      "desc": "---",
+      "topics": []
+    },
+    {
+      "cls": "tax",
+      "icon": "◆",
+      "title": "2.1 美客多账号注册审核",
+      "desc": "美客多巴西本土店的企业账号注册是入局的第一步，也是最容易踩坑的环节。在巴西的电商监管环境下，\"真实主体、真实经营、真实法人\"是贯穿始终的红线。",
+      "topics": [
+        {
+          "title": "2.1.1 企业账号注册所需材料",
+          "brief": "",
+          "core": "<p>注册企业账号（CNPJ绑定）需提前准备以下三项核心文件：<br />\n| 材料 | 具体要求 | 注意事项 |<br />\n|------|----------|----------|<br />\n| <strong>公司章程（Contrato Social）</strong> | 体现公司经营范围、股东结构、注册资本 | 经营范围需包含\"电商/贸易/进出口\"相关描述 |<br />\n| <strong>企业银行账户</strong> | 以CNPJ开立的巴西法人账户 | 个人账户（CPF）无法完成后续收款绑定 |<br />\n| <strong>法人证件（RG/CNH）</strong> | 法人的巴西身份证或驾驶执照 | 证件需在有效期内，照片清晰无反光 |<br />\n其他补充材料：税务报表（Declaração de IRPF）、办公地址证明（Conta de Luz/Água，最近60天内）建议提前备好电子扫描件，以备KYC审核中被要求补交。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "2.1.2 KYC审核全流程",
+          "brief": "",
+          "core": "<table>\n<thead>\n<tr>\n<th>阶段</th>\n<th>时间预估</th>\n<th>平台操作</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>提交材料</td>\n<td>即时</td>\n<td>上传扫描件，系统自动初筛完整性</td>\n</tr>\n<tr>\n<td>人工复核</td>\n<td>2~4周</td>\n<td>客服或审核团队逐项核对真实性</td>\n</tr>\n<tr>\n<td>补件/修正</td>\n<td>视响应速度</td>\n<td>收到通知后5个工作日内补充</td>\n</tr>\n<tr>\n<td>审核通过</td>\n<td>—</td>\n<td>收到邮件 + 卖家后台正式激活</td>\n</tr>\n<tr>\n<td>审核周期的核心影响因素：</td>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td>- <strong>材料清晰度</strong>：模糊、反光、裁切不全的证件照会触发人工打回，通常延后7~10天</td>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td>- <strong>信息一致性</strong>：法人姓名、CNPJ号码、银行账户户主名三者必须完全一致，任何一处拼写错误都会被驳回</td>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td>- <strong>经营范围匹配</strong>：若注册的经营范围未包含\"Comércio eletrônico\"（电子商务），审核人员可能要求修订章程后再提交</td>\n<td></td>\n<td></td>\n</tr>\n</tbody>\n</table>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "2.1.3 硬性规则与避坑指南",
+          "brief": "",
+          "core": "<table>\n<thead>\n<tr>\n<th>常见错误</th>\n<th>后果</th>\n<th>正确做法</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>使用MEI（个体微企）注册</td>\n<td>驳回，且CNPJ可能被平台标记</td>\n<td>至少注册ME（小微企业）或EPP</td>\n</tr>\n<tr>\n<td>用CPF代替CNPJ提交</td>\n<td>直接拒绝激活</td>\n<td>仅CNPJ主体接受入驻</td>\n</tr>\n<tr>\n<td>同一主体重复提交相同材料</td>\n<td>进入平台黑名单，永久禁入</td>\n<td>被驳回后先搞清楚原因再重新提交</td>\n</tr>\n<tr>\n<td>法人信息与银行户主不一致</td>\n<td>审核不通过，需重新申请</td>\n<td>确保银行账户对公且户名为法人本人</td>\n</tr>\n<tr>\n<td><strong>特别提示</strong>：美客多在巴西执行严格的合规准入制度。一旦被判定为\"恶意重复提交\"或\"材料伪造\"，该CNPJ及关联法人将被列入平台内部黑名单，不仅本账号作废，同一法人名下的所有企业都无法再注册新账号。</td>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td>---</td>\n<td></td>\n<td></td>\n</tr>\n</tbody>\n</table>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "product",
+      "icon": "♣",
+      "title": "2.2 店铺形象三件套",
+      "desc": "店铺视觉形象直接影响消费者第一印象与下单决策。美客多巴西站的数据显示：**完成三件套优化（头像 + Banner + 介绍）的店铺，转化率比未完成店铺平均高出25%~40%。**",
+      "topics": [
+        {
+          "title": "2.2.1 头像（Logo/Perfil）",
+          "brief": "",
+          "core": "<table>\n<thead>\n<tr>\n<th>维度</th>\n<th>推荐做法</th>\n<th>不推荐做法</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><strong>内容</strong></td>\n<td>品牌Logo</td>\n<td>产品实拍图、促销大字报</td>\n</tr>\n<tr>\n<td><strong>背景</strong></td>\n<td>纯白色底 + 巴西元素点缀</td>\n<td>五颜六色拼贴、渐变背景</td>\n</tr>\n<tr>\n<td><strong>尺寸</strong></td>\n<td>正方形（至少500×500px）</td>\n<td>长方形、拉伸变形</td>\n</tr>\n<tr>\n<td><strong>文字</strong></td>\n<td>品牌名 + 品类关键词</td>\n<td>长句标语、促销口号</td>\n</tr>\n<tr>\n<td><strong>风格</strong></td>\n<td>简洁、清晰、识别度高</td>\n<td>复杂图案、低分辨率</td>\n</tr>\n<tr>\n<td><strong>为什么白底+巴西元素有效？</strong></td>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td>巴西消费者对本土品牌有天然的信任偏好。头像中融入巴西国旗色（绿、黄、蓝）或巴西常见视觉符号（如国会大厦轮廓、绿黄丝带）能在0.3秒内建立\"本土卖家\"的心理暗示，降低陌生感。</td>\n<td></td>\n<td></td>\n</tr>\n</tbody>\n</table>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "2.2.2 Banner（横幅广告）",
+          "brief": "",
+          "core": "<p>Banner是店铺首页的视觉焦点，需要在3秒内向访客传递三个关键信息：<br />\n1. <strong>你是谁</strong>——品牌名 + 品类<br />\n2. <strong>你的优势</strong>——FULL标识、现货、快速发货<br />\n3. <strong>你的承诺</strong>——\"Entrega em 24h\"（24小时发货）、\"Frete Grátis\"（包邮）<br />\n| 元素 | 内容建议 | 位置 |<br />\n|------|----------|------|<br />\n| 主标题 | 品牌Slogan或核心优势（葡萄牙语） | 居中偏上 |<br />\n| 副标题 | 品类词 + 服务承诺 | 主标题下方 |<br />\n| 按钮文案 | \"Ver Ofertas\" / \"Compre Agora\" | 右下或居中 |<br />\n| 徽章 | 美客多FULL标识、正品保障标识 | 左上角 |<br />\n| 版权信息 | CNPJ / 品牌名 | 底部小字 |<br />\n<strong>Banner设计自检清单：</strong><br />\n- [ ] 文字是否全部为葡萄牙语？<br />\n- [ ] 是否清楚标注了FULL标识？<br />\n- [ ] 发货承诺是否正确写明（24h / 48h）？<br />\n- [ ] 有无包含电话、WhatsApp等违规信息？<br />\n- [ ] 图片是否适配PC和移动端两种显示尺寸？</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "2.2.3 店铺介绍（Descrição da Loja）",
+          "brief": "",
+          "core": "<p>店铺介绍遵循 <strong>4W1H</strong> 公式：<br />\n| 要素 | 问题 | 示例文案（葡萄牙语） |<br />\n|------|------|---------------------|<br />\n| <strong>Who</strong> | 你是谁 | \"Somos a [Nome da Loja], especialistas em [categoria] há X anos.\" |<br />\n| <strong>Where</strong> | 你在哪 | \"Localizados em São Paulo/SP, com estoque próprio e envio imediato.\" |<br />\n| <strong>What</strong> | 你卖什么 | \"Trabalhamos com [produtos principais], todos originais e com garantia.\" |<br />\n| <strong>Why</strong> | 为什么选你 | \"Entregamos em todo o Brasil, com suporte via WhatsApp em português.\" |<br />\n| <strong>How</strong> | 你的承诺 | \"Devolução em 7 dias, parcelamento em até 12x sem juros.\" |</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "2.2.4 店铺命名规则",
+          "brief": "",
+          "core": "<table>\n<thead>\n<tr>\n<th>规则</th>\n<th>说明</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><strong>语言</strong></td>\n<td>必须使用葡萄牙语</td>\n</tr>\n<tr>\n<td><strong>品类词</strong></td>\n<td>名称中应包含核心品类词，如 \"Eletrônicos\", \"Moda\", \"Casa\"</td>\n</tr>\n<tr>\n<td><strong>可读性</strong></td>\n<td>避免缩写、数字串联、拼音组合</td>\n</tr>\n<tr>\n<td><strong>品牌一致性</strong></td>\n<td>与Logo、Banner、外部社媒名称保持一致</td>\n</tr>\n<tr>\n<td><strong>长度</strong></td>\n<td>建议在15~25个字符之间</td>\n</tr>\n</tbody>\n</table>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "2.2.5 三大致命错误",
+          "brief": "",
+          "core": "<table>\n<thead>\n<tr>\n<th>错误</th>\n<th>表现</th>\n<th>影响</th>\n<th>解决方案</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><strong>中文拼音命名</strong></td>\n<td>\"zhangsan dianpu\" / \"beijing shop\"</td>\n<td>巴西买家看不懂，降低信任感，搜索无法匹配</td>\n<td>改为葡萄牙语，如 \"Loja do João - Eletrônicos\"</td>\n</tr>\n<tr>\n<td><strong>简介空白</strong></td>\n<td>店铺介绍为空或仅填几个词</td>\n<td>错失向消费者传递优势的机会，转化率下降</td>\n<td>按4W1H公式填写完整介绍</td>\n</tr>\n<tr>\n<td><strong>头像放产品图</strong></td>\n<td>上传热卖产品照片做头像</td>\n<td>显得不专业，无法建立品牌认知</td>\n<td>使用标准Logo，白底+品牌标识</td>\n</tr>\n<tr>\n<td>---</td>\n<td></td>\n<td></td>\n<td></td>\n</tr>\n</tbody>\n</table>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "extra",
+      "icon": "●",
+      "title": "2.3 收款绑定与Mercado Pago",
+      "desc": "Mercado Pago 是美客多巴西站唯一的官方收款渠道。所有买家支付的款项先进入Mercado Pago系统，在回款周期到达后，卖家才能提现至绑定的巴西法人银行账户。",
+      "topics": [
+        {
+          "title": "2.3.1 Mercado Pago 绑定步骤",
+          "brief": "绑定的银行账户必须是CNPJ对公账户，户名需与法人一致，否则验证环节直接失败。",
+          "core": "<table>\n<thead>\n<tr>\n<th>步骤</th>\n<th>操作说明</th>\n<th>注意事项</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>登录卖家后台 → 设置 → 收款方式 → Mercado Pago</td>\n<td>确保使用Chrome浏览器，关闭翻译插件以免出现页面异常</td>\n</tr>\n<tr>\n<td>2</td>\n<td>点击\"Vincular conta Mercado Pago\"</td>\n<td>若已有Mercado Pago账号会直接跳转，无账号则先注册</td>\n</tr>\n<tr>\n<td>3</td>\n<td>填写CNPJ绑定信息</td>\n<td>CNPJ号码必须与美客多店铺注册的一致</td>\n</tr>\n<tr>\n<td>4</td>\n<td>添加法人对公银行账户</td>\n<td>支持Itaú、Bradesco、Santander、Banco do Brasil等主流银行</td>\n</tr>\n<tr>\n<td>5</td>\n<td>完成小额验证打款</td>\n<td>美客多会在1~3个工作日内向提交的账户打入一笔小于R$1.00的金额</td>\n</tr>\n<tr>\n<td>6</td>\n<td>在后台输入验证金额</td>\n<td>确认无误后绑定完成，状态变更为\"Ativo\"</td>\n</tr>\n</tbody>\n</table><p>绑定的银行账户必须是CNPJ对公账户，户名需与法人一致，否则验证环节直接失败。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "2.3.2 回款周期详解",
+          "brief": "",
+          "core": "<p>回款周期受两个因素决定：<strong>商品是否标记为FULL</strong> 以及 <strong>买家的确认收货行为</strong>。<br />\n| 场景 | 回款启动条件 | 到账时间（T+） |<br />\n|------|-------------|---------------|<br />\n| FULL商品（买家自动确认） | 订单发出后第15天 | T+15 天 |<br />\n| 非FULL商品（买家手动确认） | 买家点击\"Confirmar Recebimento\" | T+1 工作日 |<br />\n| 非FULL商品（系统自动确认） | 买家未操作，第14天系统自动确认 | T+14 天 |<br />\n| 买家申请退款的订单 | 争议解决后启动回款 | 不确定性较高 |<br />\n<strong>优化建议</strong>：申请FULL标签可以显著加快回款节奏。非FULL订单中，建议在包裹内放置\"确认收货\"引导卡（葡萄牙语说明），引导买家尽快手动确认，缩短回款周期。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "2.3.3 提现费用与限制",
+          "brief": "",
+          "core": "<table>\n<thead>\n<tr>\n<th>项目</th>\n<th>费率/限额</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Mercado Pago 提现手续费</td>\n<td>每笔约R$ 0.99 ~ R$ 5.00（视金额而定）</td>\n</tr>\n<tr>\n<td>免费提现方式</td>\n<td>绑定Mercado Pago信用卡（Pagamento com cartão）</td>\n</tr>\n<tr>\n<td>单笔提现下限</td>\n<td>R$ 5.00</td>\n</tr>\n<tr>\n<td>单笔提现上限</td>\n<td>R$ 50,000.00</td>\n</tr>\n<tr>\n<td>提现到账时间</td>\n<td>工作日当日提现 → 次工作日到账</td>\n</tr>\n<tr>\n<td>---</td>\n<td></td>\n</tr>\n</tbody>\n</table>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "platform",
+      "icon": "★",
+      "title": "2.4 WhatsApp商务号配置",
+      "desc": "",
+      "topics": [
+        {
+          "title": "2.4.1 为什么必须配置WhatsApp",
+          "brief": "",
+          "core": "<p>巴西拥有超过 <strong>1.5亿</strong> WhatsApp活跃用户，渗透率高达 <strong>92%</strong>。在巴西电商场景中，WhatsApp不仅是客服工具，更是信任背书和售后闭环的核心节点。<br />\n| 数据维度 | 数值 | 说明 |<br />\n|----------|------|------|<br />\n| 巴西WhatsApp用户占比 | 92% | 几乎覆盖全部上网人口 |<br />\n| 购前咨询使用率 | 67% | 超过三分之二的买家会在下单前通过WhatsApp询问 |<br />\n| 售后纠纷通过WhatsApp解决率 | 53% | 与平台Tickets渠道并列为两大纠纷入口 |<br />\n| 店铺+WhatsApp联动后转化率提升 | 约18% | 可见WhatsApp入口对信任感的直接拉动 |</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "2.4.2 配置要求",
+          "brief": "",
+          "core": "<table>\n<thead>\n<tr>\n<th>配置项</th>\n<th>要求</th>\n<th>理由</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><strong>手机号</strong></td>\n<td>巴西手机号（+55开头），如 +55 11 9XXXX-XXXX</td>\n<td>巴西消费者对国际号码信任度极低</td>\n</tr>\n<tr>\n<td><strong>区号</strong></td>\n<td>DDD（11~99）需与实际经营地匹配</td>\n<td>圣保罗店用11，里约店用21</td>\n</tr>\n<tr>\n<td><strong>头像</strong></td>\n<td>与店铺Logo一致或使用品牌图</td>\n<td>保持视觉统一</td>\n</tr>\n<tr>\n<td><strong>营业时间</strong></td>\n<td>在WhatsApp Business中设置\"Horário de Atendimento\"</td>\n<td>管理买家期待</td>\n</tr>\n</tbody>\n</table>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "2.4.3 响应率与服务标准",
+          "brief": "",
+          "core": "<p>美客多对卖家客服质量有明确的量化考核：<br />\n| 指标 | 标准 | 影响 |<br />\n|------|------|------|<br />\n| 响应率 | <strong>≥ 90%</strong> | 低于90% → 店铺搜索排名降权 |<br />\n| 24小时内回复率 | <strong>≥ 95%</strong> | 低于95% → 影响Reputação评分 |<br />\n| 黄金回复时间 | <strong>≤ 4小时</strong> | 4小时内回复 → 最佳客户体验 |<br />\n| 周末/节假日 | 建议设置自动回复 | 连续48小时不回复 → 投诉风险上升 |<br />\n<strong>操作建议</strong>：<br />\n1. <strong>下载 WhatsApp Business</strong>（非普通WhatsApp），使用CNPJ对应的企业信息注册<br />\n2. <strong>设置快捷回复</strong>（Respostas Rápidas）：将常见问题如\"发货时间\"、\"退换货政策\"预设为模板消息<br />\n3. <strong>配置自动问候语</strong>（Mensagem de Boas-Vindas）：买家首次联系时自动发送问候 + 核心信息<br />\n4. <strong>标注营业时间</strong>：避免买家在非工作时段产生过高期待<br />\n5. <strong>定期监控响应率</strong>：低于92%时主动排查原因（人员不足/消息太多/漏回复）</p>\n<hr />",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "tax",
+      "icon": "◆",
+      "title": "2.5 退货政策自定义",
+      "desc": "",
+      "topics": [
+        {
+          "title": "2.5.1 法律框架：CDC第49条",
+          "brief": "",
+          "core": "<p>巴西《消费者保护法典》（Código de Defesa do Consumidor, CDC）第49条规定：<strong>消费者在远程购物中有7天无理由退货权（Direito de Arrependimento）</strong>。<br />\n| 条款 | 内容要点 | 对卖家的约束 |<br />\n|------|----------|-------------|<br />\n| CDC Art. 49 | 远程购物/非面对面交易的消费者享有7天无理由退货权 | 必须设置 ≥ 7天的退货有效期 |<br />\n| 起算时间 | 从买家收到商品的次日开始计算 | 退货窗口不可缩短至7天以内 |<br />\n| 退货费用 | 7天内退货运费由卖家承担 | 需在政策中明确说明运费承担方 |<br />\n| 例外商品 | 定制商品、已拆封的卫生用品、数字商品等 | 可在政策中注明例外，但需有法律依据 |</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "2.5.2 自定义退货政策的必备要素",
+          "brief": "",
+          "core": "<table>\n<thead>\n<tr>\n<th>要素</th>\n<th>必须说明的内容</th>\n<th>重要性</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><strong>退货有效期</strong></td>\n<td>自收货日起可退换的天数（须 ≥ 7）</td>\n<td>★★★★★</td>\n</tr>\n<tr>\n<td><strong>运费承担</strong></td>\n<td>7天内卖家承担，之后买家承担或各付一程</td>\n<td>★★★★★</td>\n</tr>\n<tr>\n<td><strong>产品状态要求</strong></td>\n<td>未使用、原包装完整、配件齐全</td>\n<td>★★★★</td>\n</tr>\n<tr>\n<td><strong>退款方式</strong></td>\n<td>退回Mercado Pago余额/原路退回</td>\n<td>★★★★</td>\n</tr>\n<tr>\n<td><strong>退款时长</strong></td>\n<td>收到退货后 X 个工作日内处理</td>\n<td>★★★</td>\n</tr>\n<tr>\n<td><strong>例外清单</strong></td>\n<td>不可退换商品的具体名单</td>\n<td>★★★</td>\n</tr>\n</tbody>\n</table>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "2.5.3 正确写法 vs 错误写法",
+          "brief": "",
+          "core": "<table>\n<thead>\n<tr>\n<th>对比项</th>\n<th>正确写法（葡萄牙语）</th>\n<th>错误写法</th>\n<th>问题分析</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><strong>退货有效期</strong></td>\n<td>\"Você tem até 7 dias após o recebimento para solicitar devolução.\"</td>\n<td>\"接受3天内退货\"</td>\n<td>违反CDC第49条，7天是法定最低标准</td>\n</tr>\n<tr>\n<td><strong>运费承担</strong></td>\n<td>\"Nos primeiros 7 dias, o frete de devolução é por nossa conta.\"</td>\n<td>\"退货运费买家自理\"</td>\n<td>7天内卖家承担运费是法定义务</td>\n</tr>\n<tr>\n<td><strong>产品状态</strong></td>\n<td>\"O produto deve estar sem sinais de uso, com embalagem original e todos os acessórios.\"</td>\n<td>\"只要不影响二次销售即可\"</td>\n<td>描述模糊，容易产生争议</td>\n</tr>\n<tr>\n<td><strong>退款时限</strong></td>\n<td>\"Reembolsamos em até 5 dias úteis após o recebimento do produto.\"</td>\n<td>\"审核通过后退款\"</td>\n<td>\"审核通过\"无明确时限，买家投诉风险高</td>\n</tr>\n<tr>\n<td><strong>例外说明</strong></td>\n<td>\"Produtos íntimos e personalizados não aceitam devolução por direito de arrependimento.\"</td>\n<td>\"所有商品均可退货\"</td>\n<td>未列明例外会导致后续纠纷被动</td>\n</tr>\n</tbody>\n</table>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "2.5.4 合规退货政策模板（可直接参考）",
+          "brief": "",
+          "core": "<p>Prazo de arrependimento: 7 dias corridos a partir do recebimento do produto.</p>\n<p>Condições do produto: Deve estar sem uso, na embalagem original, com todos os acessórios e manuais.</p>\n<p>Frete de devolução: Nos primeiros 7 dias, o frete é por conta da loja. Após esse período, o frete é por conta do comprador.</p>\n<p>Prazo de reembolso: Até 5 dias úteis após o recebimento e conferência do produto devolvido.</p>\n<p>Forma de reembolso: Crédito na conta Mercado Pago ou estorno no cartão de crédito (conforme forma de pagamento original).</p>\n<h2>Exceções: Produtos personalizados, itens íntimos (lingerie, biquínis) e produtos digitais após download não aceitam devolução por direito de arrependimento, salvo em caso de defeito.</h2>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "product",
+      "icon": "♣",
+      "title": "2.6 店铺健康度初识",
+      "desc": "美客多使用一套名为 **Reputação（信誉评级）** 的视觉化评分体系来衡量店铺的健康程度。该评级直接影响搜索排名、活动报名资格和运费补贴。",
+      "topics": [
+        {
+          "title": "2.6.1 Reputação 颜色体系",
+          "brief": "",
+          "core": "<table>\n<thead>\n<tr>\n<th>颜色等级</th>\n<th>评分区间</th>\n<th>状态</th>\n<th>对店铺的影响</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>🟢 <strong>绿色</strong></td>\n<td>≥ 4.8分</td>\n<td>优秀</td>\n<td>搜索加权、活动报名资格、<strong>50%运费减免</strong></td>\n</tr>\n<tr>\n<td>🟡 <strong>黄色</strong></td>\n<td>4.5 ~ 4.7分</td>\n<td>良好</td>\n<td>基础搜索排名、部分活动可报名</td>\n</tr>\n<tr>\n<td>🟠 <strong>橙色</strong></td>\n<td>4.0 ~ 4.4分</td>\n<td>一般</td>\n<td>搜索排名显著下降，活动受限</td>\n</tr>\n<tr>\n<td>🔴 <strong>红色</strong></td>\n<td>&lt; 4.0分</td>\n<td>危险</td>\n<td>搜索排名垫底，无法报名任何活动，可能被封店</td>\n</tr>\n</tbody>\n</table>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "2.6.2 四大核心指标详解",
+          "brief": "",
+          "core": "<table>\n<thead>\n<tr>\n<th>指标</th>\n<th>全称</th>\n<th>定义</th>\n<th>理想值</th>\n<th>计算方式</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><strong>投诉率</strong></td>\n<td>Reclamações</td>\n<td>买家投诉案件占总订单的比例</td>\n<td>&lt; 1%</td>\n<td>投诉数 ÷ 总订单数 × 100%</td>\n</tr>\n<tr>\n<td><strong>取消率</strong></td>\n<td>Cancelamentos</td>\n<td>卖家主动取消的订单比例</td>\n<td>&lt; 2%</td>\n<td>卖家取消数 ÷ 总订单数 × 100%</td>\n</tr>\n<tr>\n<td><strong>延迟率</strong></td>\n<td>Atrasos na Entrega</td>\n<td>超出承诺时效未送达的订单比例</td>\n<td>&lt; 3%</td>\n<td>延迟订单数 ÷ 总订单数 × 100%</td>\n</tr>\n<tr>\n<td><strong>仲裁率</strong></td>\n<td>Mediações</td>\n<td>升级至平台仲裁的纠纷比例</td>\n<td>&lt; 0.5%</td>\n<td>仲裁数 ÷ 总订单数 × 100%</td>\n</tr>\n</tbody>\n</table><p>四个指标并非简单平均，投诉率和仲裁率的权重最高。一次仲裁记录的影响大约等于10次投诉。</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "2.6.3 4.8分生死线",
+          "brief": "",
+          "core": "<p>为什么绿色店铺的4.8分被卖家称为\"生死线\"？<br />\n| 权益 | 绿色（≥ 4.8分） | 非绿色（&lt; 4.8分） |<br />\n|------|------------------|-------------------|<br />\n| 搜索排名 | TOP优先级 | 默认排名，新品曝光困难 |<br />\n| 活动报名 | 所有大促 + 闪购均可参加 | 部分活动无法报名 |<br />\n| 运费补贴 | <strong>50% 运费减免</strong> | 无补贴 |<br />\n| 买家信任标签 | 显示\"Ótimo vendedor\"标识 | 无标识 |<br />\n| 新品扶持 | 新品搜索加权更快 | 新品冷启动周期长 |</p>",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        },
+        {
+          "title": "2.6.4 绿色店铺实操指南",
+          "brief": "",
+          "core": "<p><strong>每日必做3件事：</strong><br />\n1. <strong>检查Reputação面板</strong>（卖家后台 → Reputação）—— 确认颜色是否变化，关注4项指标的具体数值<br />\n2. <strong>处理当日投诉</strong>（Reclamações）—— 投诉必须24小时内响应，超时自动升级为仲裁<br />\n3. <strong>排查延迟订单</strong>（Vendas → Entregas）—— 对有延期风险的订单主动联系买家协商<br />\n<strong>降分后的恢复路径：</strong><br />\n| 当前颜色 | 恢复目标 | 所需连续良好表现 | 关键动作 |<br />\n|----------|----------|------------------|----------|<br />\n| 🟠 橙色→🟡 黄色 | 4.4分 | 约30天 | 确保发货时效，处理存量投诉 |<br />\n| 🟡 黄色→🟢 绿色 | 4.8分 | 约60天 | 提升服务质量，主动邀请好评 |<br />\n| 🔴 红色→任何 | 4.0分 | 约90天 | 逐一解决仲裁，优化运营流程 |</p>\n<hr />",
+          "warn": "",
+          "ext": "",
+          "orig": ""
+        }
+      ]
+    },
+    {
+      "cls": "extra",
+      "icon": "●",
+      "title": "本章小结",
+      "desc": "| 核心主题 | 关键知识点 | 行动项 |",
+      "topics": []
+    }
+  ],
+  "takeaways": [],
+  "homework": [],
+  "stats": [
+    {
+      "num": "41",
+      "label": "知识专题",
+      "color": 1
+    },
+    {
+      "num": "16",
+      "label": "核心板块",
+      "color": 4
+    }
+  ]
+};
+render(DATA);
+</script>
+</body>
+</html>
